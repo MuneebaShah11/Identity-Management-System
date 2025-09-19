@@ -1,0 +1,234 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="{{ url_for('static', filename='dark-mode.js') }}"></script>
+  </head>
+  <body>
+    <div
+      class="relative flex size-full min-h-screen flex-col bg-gray-50 group/design-root overflow-x-hidden"
+      style="--select-button-svg: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724px%27 height=%2724px%27 fill=%27rgb(92,114,138)%27 viewBox=%270 0 256 256%27%3e%3cpath d=%27M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48,48A8,8,0,0,0,85.66,85.66Z%27%3e%3c/path%3e%3c/svg%3e'); font-family: Inter, Noto Sans, sans-serif;"
+    >
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#eaedf1] px-10 py-3">
+          <a href="{{ url_for('students') }}">
+          <div class="w-[10.5rem] h-[6.5rem]">
+            <img src="../../static/logo.png" alt="Logo" class="w-full h-full object-contain" />
+          </div>
+           </a>
+
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-4">
+              <div class="bg-[#10b981] text-white px-3 py-1 rounded-full text-xs font-semibold">
+                Student Portal
+              </div>
+            </div>
+            <div class="flex items-center gap-9">
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('students') }}">Dashboard</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('create_students') }}">Profile</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('access_request') }}">Access Requests</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('access_logs') }}">Access Logs</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href = "{{ url_for('settings') }}">Settings</a>
+              <a class="text-[#dc2626] text-sm font-medium leading-normal" href="{{ url_for('logout') }}">Logout</a>
+            </div>
+          </div>
+        </header>
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <div class="flex min-w-72 flex-col gap-3">
+                <p class="text-[#101418] tracking-light text-[32px] font-bold leading-tight">Student Profile</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal">Manage your personal and academic information.</p>
+              </div>
+            </div>
+          <form method="POST" action="{{ url_for('create_profile') }}">
+            <h3 class="text-[#101418] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Personal Information</h3>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Full Name</p>
+                <input
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.full_name or '' }}"
+                  name="full_name"
+                  required
+                />
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Date of Birth</p>
+                <input
+                  type="date"
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.birth_date or '' }}"
+                  name="birth_date"
+                  required
+                />
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Email</p>
+                <input
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.email or '' }}"
+                  name="email"
+                  required
+                />
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Phone Number</p>
+                <input
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.phone or '' }}"
+                  name="contact_number"
+                  required
+                />
+              </label>
+            </div>
+            <h3 class="text-[#101418] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Academic Details</h3>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Major</p>
+                <input
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.major or '' }}"
+                  name="major"
+                  required
+                />
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Year</p>
+                <input
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.year or '' }}"
+                  name="year"
+                  required
+                />
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">GPA</p>
+                <input
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.gpa or '' }}"
+                  name="gpa"
+                  required
+                />
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Advisor</p>
+                <input
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.advisor or '' }}"
+                  name="advisor"
+                  required
+                />
+              </label>
+            </div>
+            <h3 class="text-[#101418] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Contact Information</h3>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Address</p>
+                <input
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.address or '' }}"
+                  name="address"
+                  required                  
+                />
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">City</p>
+                <select
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 bg-[image:--select-button-svg] placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  name="city"
+                  required
+                  >
+                  <option value="">{{ student_data.city or 'Select City' }}</option>
+                  <option value="Karachi" {% if student_data.city == 'Karachi' %}selected{% endif %}>Karachi</option>
+                  <option value="Lahore" {% if student_data.city == 'Lahore' %}selected{% endif %}>Lahore</option>
+                  <option value="Islamabad" {% if student_data.city == 'Islamabad' %}selected{% endif %}>Islamabad</option>
+                  <option value="Rawalpindi" {% if student_data.city == 'Rawalpindi' %}selected{% endif %}>Rawalpindi</option>
+                  <option value="Faisalabad" {% if student_data.city == 'Faisalabad' %}selected{% endif %}>Faisalabad</option>
+                </select>
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">State</p>
+                <select
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 bg-[image:--select-button-svg] placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  name="state"                  
+                  required
+                  >
+                  <option value="">{{ student_data.state or 'Select State' }}</option>
+                  <option value="Sindh" {% if student_data.state == 'Sindh' %}selected{% endif %}>Sindh</option>
+                  <option value="Punjab" {% if student_data.state == 'Punjab' %}selected{% endif %}>Punjab</option>
+                  <option value="KPK" {% if student_data.state == 'KPK' %}selected{% endif %}>KPK</option>
+                  <option value="Balochistan" {% if student_data.state == 'Balochistan' %}selected{% endif %}>Balochistan</option>
+                  <option value="Islamabad Capital Territory" {% if student_data.state == 'Islamabad Capital Territory' %}selected{% endif %}>Islamabad Capital Territory</option>
+                </select>
+              </label>
+            </div>
+            <h3 class="text-[#101418] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Additional Information</h3>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Emergency Contact</p>
+                <input
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.emergency_contact or '' }}"
+                  name="emergency_contact"
+                  required
+                />
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Relationship</p>
+                <select
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 bg-[image:--select-button-svg] placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  name="relationship"
+                  required
+                  >
+                  <option value="">{{ student_data.relationship or 'Select Relationship' }}</option>
+                  <option value="Parent" {% if student_data.relationship == 'Parent' %}selected{% endif %}>Parent</option>
+                  <option value="Guardian" {% if student_data.relationship == 'Guardian' %}selected{% endif %}>Guardian</option>
+                  <option value="Sibling" {% if student_data.relationship == 'Sibling' %}selected{% endif %}>Sibling</option>
+                  <option value="Spouse" {% if student_data.relationship == 'Spouse' %}selected{% endif %}>Spouse</option>
+                  <option value="Other" {% if student_data.relationship == 'Other' %}selected{% endif %}>Other</option>
+                </select>
+              </label>
+            </div>
+            <div class="flex px-4 py-3 justify-end">
+              <button
+                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#dce7f3] text-[#101418] text-sm font-bold leading-normal tracking-[0.015em]"
+              >
+                <span class="truncate">Save Changes</span>
+              </button>
+            </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

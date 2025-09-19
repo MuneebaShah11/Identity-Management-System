@@ -1,0 +1,193 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="{{ url_for('static', filename='dark-mode.js') }}"></script>
+  </head>
+  <body>
+    <div
+      class="relative flex size-full min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden"
+      style="--checkbox-tick-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(248,250,252)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z%27/%3e%3c/svg%3e'); font-family: Inter, &quot;Noto Sans&quot;, sans-serif;"
+    >
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e7edf4] px-10 py-3">
+          <a href="{{ url_for('requester') }}">
+            <div class="w-[10.5rem] h-[6.5rem]">
+              <img src="../../static/logo.png" alt="Logo" class="w-full h-full object-contain" />
+            </div>
+          </a>
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-4">
+              <div class="bg-[#3b82f6] text-white px-3 py-1 rounded-full text-xs font-semibold">
+                Requester Portal
+              </div>
+            </div>
+            <div class="flex items-center gap-9">
+              <a class="text-[#0d141c] text-sm font-medium leading-normal" href="{{ url_for('requester') }}">Home</a>
+              <a class="text-[#0d141c] text-sm font-medium leading-normal" href="{{ url_for('requester_status')}}">Requests</a>
+              <a class="text-[#0d141c] text-sm font-medium leading-normal" href="{{ url_for('requester_students') }}">Students</a>
+              <a class="text-[#0d141c] text-sm font-medium leading-normal" href="{{ url_for('requester_settings') }}">Settings</a>
+              <a class="text-[#dc2626] text-sm font-medium leading-normal" href="{{ url_for('logout') }}">Logout</a>
+            </div>
+            
+          </div>
+        </header>
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight min-w-72">Approved Student Data</p>
+              <a href="{{ url_for('requester_students') }}" class="text-[#0b79ef] hover:text-[#0a6bc7] text-sm font-medium leading-normal">
+                ← Back to Students
+              </a>
+            </div>
+          
+          <!-- Student Basic Info -->
+          <div class="px-4 py-3">
+            <div class="bg-white rounded-xl border border-[#d4dbe2] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Student Information</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Full Name</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ student_info.full_name or 'N/A' }}</p>
+                </div>
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Student ID</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ student_info.student_id or 'N/A' }}</p>
+                </div>
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Email</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ student_info.email or 'N/A' }}</p>
+                </div>
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Department</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ student_info.department or 'N/A' }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Approved Data Sections -->
+          {% if 'personal_information' in approved_data_points and approved_data.personal_information %}
+          <div class="px-4 py-3">
+            <div class="bg-white rounded-xl border border-[#d4dbe2] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Personal Information</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Full Name</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.personal_information.full_name or 'N/A' }}</p>
+                </div>
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Birth Date</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.personal_information.birth_date or 'N/A' }}</p>
+                </div>
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Phone</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.personal_information.phone or 'N/A' }}</p>
+                </div>
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Email</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.personal_information.email or 'N/A' }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if 'academic_information' in approved_data_points and approved_data.academic_information %}
+          <div class="px-4 py-3">
+            <div class="bg-white rounded-xl border border-[#d4dbe2] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Academic Information</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Major</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.academic_information.major or 'N/A' }}</p>
+                </div>
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Year</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.academic_information.year or 'N/A' }}</p>
+                </div>
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">GPA</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.academic_information.gpa or 'N/A' }}</p>
+                </div>
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Advisor</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.academic_information.advisor or 'N/A' }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if 'contact_information' in approved_data_points and approved_data.contact_information %}
+          <div class="px-4 py-3">
+            <div class="bg-white rounded-xl border border-[#d4dbe2] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Contact Information</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Address</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.contact_information.address or 'N/A' }}</p>
+                </div>
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">City</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.contact_information.city or 'N/A' }}</p>
+                </div>
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">State</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.contact_information.state or 'N/A' }}</p>
+                </div>
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Phone</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.contact_information.phone or 'N/A' }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if 'additional_information' in approved_data_points and approved_data.additional_information %}
+          <div class="px-4 py-3">
+            <div class="bg-white rounded-xl border border-[#d4dbe2] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Additional Information</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Emergency Contact</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.additional_information.emergency_contact or 'N/A' }}</p>
+                </div>
+                <div>
+                  <label class="text-[#5c728a] text-sm font-medium">Relationship</label>
+                  <p class="text-[#0d141c] text-base font-normal">{{ approved_data.additional_information.relationship or 'N/A' }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- Access Information -->
+          <div class="px-4 py-3">
+            <div class="bg-blue-50 rounded-xl border border-blue-200 p-6">
+              <h3 class="text-blue-800 text-lg font-bold leading-tight mb-2">Access Information</h3>
+              <p class="text-blue-700 text-sm">
+                You have been granted access to the following data categories: 
+                <span class="font-medium">{{ approved_data_points | join(', ') | replace('_', ' ') | title }}</span>
+              </p>
+              <p class="text-blue-600 text-xs mt-2">
+                This access is logged and monitored for security purposes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

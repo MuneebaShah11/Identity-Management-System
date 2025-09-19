@@ -1,0 +1,252 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body>
+    <div class="relative flex size-full min-h-screen flex-col bg-gray-50 group/design-root overflow-x-hidden" style='font-family: Inter, "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#eaedf1] px-10 py-3">
+          <a href="{{ url_for('students') }}">
+            <div class="w-[10.5rem] h-[6.5rem]">
+              <img src="../../static/logo.png" alt="Logo" class="w-full h-full object-contain" />
+            </div>
+          </a>
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-9">
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('students') }}">Dashboard</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('create_students') }}">Profile</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('access_request') }}">Access Requests</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href = "{{ url_for('settings') }}">Settings</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href = "{{ url_for('privacy_settings') }}">Privacy Settings</a>
+            </div>
+          </div>
+        </header>
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <div class="flex min-w-72 flex-col gap-3">
+                <p class="text-[#101418] tracking-light text-[32px] font-bold leading-tight">Privacy Settings</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal">Manage who can see your profile information.</p>
+              </div>
+            </div>
+            <h3 class="text-[#101418] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Profile Visibility</h3>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">Profile Picture</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your profile picture.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">Full Name</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your full name.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">Major</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your academic major.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">Year of Study</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your current year of study.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">Courses</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your list of courses.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">Grades</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your grades.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">Contact Information</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your contact information.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">Extracurricular Activities</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your extracurricular activities.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">Work Experience</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your work experience.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">Skills</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your skills.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">Projects</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your projects.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">Awards and Honors</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your awards and honors.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">Portfolio</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your portfolio.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-50 px-4 min-h-[72px] py-2 justify-between">
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101418] text-base font-medium leading-normal line-clamp-1">References</p>
+                <p class="text-[#5c728a] text-sm font-normal leading-normal line-clamp-2">Control who can see your references.</p>
+              </div>
+              <div class="shrink-0">
+                <label
+                  class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#eaedf1] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-[#dce7f3]"
+                >
+                  <div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+                  <input type="checkbox" class="invisible absolute" />
+                </label>
+              </div>
+            </div>
+            <div class="flex px-4 py-3 justify-end">
+              <button
+                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#dce7f3] text-[#101418] text-sm font-bold leading-normal tracking-[0.015em]"
+              >
+                <span class="truncate">Save Changes</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

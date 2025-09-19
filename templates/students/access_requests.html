@@ -1,0 +1,233 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="{{ url_for('static', filename='dark-mode.js') }}"></script>
+  </head>
+  <body>
+    <div class="relative flex size-full min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden" style='font-family: Inter, "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#eaedf1] px-10 py-3">
+            <a href="{{ url_for('students') }}">
+                <div class="w-[10.5rem] h-[6.5rem]">
+                  <img src="../../static/logo.png" alt="Logo" class="w-full h-full object-contain" />
+                </div>
+            </a>
+            <div class="flex flex-1 justify-end gap-8">
+              <div class="flex items-center gap-4">
+                <div class="bg-[#10b981] text-white px-3 py-1 rounded-full text-xs font-semibold">
+                  Student Portal
+                </div>
+              </div>
+              <div class="flex items-center gap-9">
+                <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('students') }}">Dashboard</a>
+                <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('create_students') }}">Profile</a>
+                <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('access_request') }}">Access Requests</a>
+                <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('access_logs') }}">Access Logs</a>
+                <a class="text-[#101418] text-sm font-medium leading-normal" href = "{{ url_for('settings') }}">Settings</a>
+                <a class="text-[#dc2626] text-sm font-medium leading-normal" href="{{ url_for('logout') }}">Logout</a>
+              </div>
+            </div>
+          </header>
+        <div class="gap-1 px-6 flex flex-1 justify-center py-5">
+            
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4"><p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight min-w-72">Access Requests</p></div>
+            <div class="pb-3">
+              <div class="flex border-b border-[#cedbe8] px-4 gap-8">
+                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-[#0b79ef] text-[#0d141c] pb-[13px] pt-4" href="#" onclick="showTab('incoming')">
+                  <p class="text-[#0d141c] text-sm font-bold leading-normal tracking-[0.015em]">Incoming Requests</p>
+                </a>
+                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#49719c] pb-[13px] pt-4" href="#" onclick="showTab('past')">
+                  <p class="text-[#49719c] text-sm font-bold leading-normal tracking-[0.015em]">Past Requests</p>
+                </a>
+              </div>
+            </div>
+            <div class="px-4 py-3 @container">
+              <div class="flex overflow-hidden rounded-xl border border-[#cedbe8] bg-slate-50">
+                <table class="flex-1">
+                  <thead>
+                    <tr class="bg-slate-50">
+                      <th class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-120 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">
+                        Requester
+                      </th>
+                      <th class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-240 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">Role</th>
+                      <th class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-360 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">Department</th>
+                      <th class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-480 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">
+                        Requested Data
+                      </th>
+                      <th class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-600 px-4 py-3 text-left text-[#0d141c] w-60 text-sm font-medium leading-normal">
+                        Request Date
+                      </th>
+                      <th class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-720 px-4 py-3 text-left text-[#0d141c] w-60 text-sm font-medium leading-normal">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="incoming-requests">
+                    {% if incoming_requests %}
+                      {% for request in incoming_requests %}
+                      <tr class="border-t border-t-[#cedbe8]">
+                        <td class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-120 h-[72px] px-4 py-2 w-[400px] text-[#0d141c] text-sm font-normal leading-normal">
+                          {{ request.requester_name or 'Unknown Requester' }}
+                        </td>
+                        <td class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-240 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
+                          {{ request.requester_role or 'N/A' }}
+                        </td>
+                        <td class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-360 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
+                          {{ request.requester_department or 'N/A' }}
+                        </td>
+                        <td class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-480 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
+                          {{ request.requested_data.replace('_', ' ').title() }}
+                        </td>
+                        <td class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-600 h-[72px] px-4 py-2 w-60 text-[#49719c] text-sm font-normal leading-normal">
+                          {{ request.request_date.strftime('%Y-%m-%d') if request.request_date else 'N/A' }}
+                        </td>
+                        <td class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-720 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                          <div class="flex gap-2">
+                            <button class="px-3 py-1 bg-green-100 text-green-800 rounded text-xs font-medium" onclick="approveRequest({{ request.request_id }})">
+                              Approve
+                            </button>
+                            <button class="px-3 py-1 bg-red-100 text-red-800 rounded text-xs font-medium" onclick="rejectRequest({{ request.request_id }})">
+                              Reject
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    {% else %}
+                      <tr class="border-t border-t-[#cedbe8]">
+                        <td colspan="6" class="h-[72px] px-4 py-2 text-center text-[#49719c] text-sm font-normal leading-normal">
+                          No incoming requests found.
+                        </td>
+                      </tr>
+                    {% endif %}
+                  </tbody>
+                  <tbody id="past-requests" style="display: none;">
+                    {% if past_requests %}
+                      {% for request in past_requests %}
+                      <tr class="border-t border-t-[#cedbe8]">
+                        <td class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-120 h-[72px] px-4 py-2 w-[400px] text-[#0d141c] text-sm font-normal leading-normal">
+                          {{ request.requester_name or 'Unknown Requester' }}
+                        </td>
+                        <td class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-240 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
+                          {{ request.requester_role or 'N/A' }}
+                        </td>
+                        <td class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-360 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
+                          {{ request.requester_department or 'N/A' }}
+                        </td>
+                        <td class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-480 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
+                          {{ request.requested_data.replace('_', ' ').title() }}
+                        </td>
+                        <td class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-600 h-[72px] px-4 py-2 w-60 text-[#49719c] text-sm font-normal leading-normal">
+                          {{ request.request_date.strftime('%Y-%m-%d') if request.request_date else 'N/A' }}
+                        </td>
+                        <td class="table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-720 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                          <span class="px-3 py-1 rounded text-xs font-medium {% if request.status == 'approved' %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
+                            {{ request.status.title() }}
+                          </span>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    {% else %}
+                      <tr class="border-t border-t-[#cedbe8]">
+                        <td colspan="6" class="h-[72px] px-4 py-2 text-center text-[#49719c] text-sm font-normal leading-normal">
+                          No past requests found.
+                        </td>
+                      </tr>
+                    {% endif %}
+                  </tbody>
+                </table>
+              </div>
+              <style>
+                          @container(max-width:120px){.table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-120{display: none;}}
+                @container(max-width:240px){.table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-240{display: none;}}
+                @container(max-width:360px){.table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-360{display: none;}}
+                @container(max-width:480px){.table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-480{display: none;}}
+                @container(max-width:600px){.table-afb0f6ce-f91f-4e33-9a6d-d83067b2e913-column-600{display: none;}}
+              </style>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      function showTab(tabName) {
+        // Hide all tbody elements
+        document.getElementById('incoming-requests').style.display = 'none';
+        document.getElementById('past-requests').style.display = 'none';
+        
+        // Update tab styling
+        const tabs = document.querySelectorAll('.flex.border-b.border-\\[\\#cedbe8\\] a');
+        tabs.forEach(tab => {
+          const p = tab.querySelector('p');
+          if (tabName === 'incoming' && p.textContent.includes('Incoming')) {
+            tab.className = 'flex flex-col items-center justify-center border-b-[3px] border-b-[#0b79ef] text-[#0d141c] pb-[13px] pt-4';
+            p.className = 'text-[#0d141c] text-sm font-bold leading-normal tracking-[0.015em]';
+          } else if (tabName === 'past' && p.textContent.includes('Past')) {
+            tab.className = 'flex flex-col items-center justify-center border-b-[3px] border-b-[#0b79ef] text-[#0d141c] pb-[13px] pt-4';
+            p.className = 'text-[#0d141c] text-sm font-bold leading-normal tracking-[0.015em]';
+          } else {
+            tab.className = 'flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#49719c] pb-[13px] pt-4';
+            p.className = 'text-[#49719c] text-sm font-bold leading-normal tracking-[0.015em]';
+          }
+        });
+        
+        // Show selected tab content
+        if (tabName === 'incoming') {
+          document.getElementById('incoming-requests').style.display = '';
+        } else if (tabName === 'past') {
+          document.getElementById('past-requests').style.display = '';
+        }
+      }
+      
+      function approveRequest(requestId) {
+        if (confirm('Are you sure you want to approve this request?')) {
+          updateRequestStatus(requestId, 'approved');
+        }
+      }
+      
+      function rejectRequest(requestId) {
+        if (confirm('Are you sure you want to reject this request?')) {
+          updateRequestStatus(requestId, 'rejected');
+        }
+      }
+      
+      function updateRequestStatus(requestId, status) {
+        fetch('/update_request_status', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            request_id: requestId,
+            status: status
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            location.reload(); // Reload page to show updated data
+          } else {
+            alert('Error updating request status: ' + (data.error || 'Unknown error'));
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Error updating request status');
+        });
+      }
+    </script>
+  </body>
+</html>
