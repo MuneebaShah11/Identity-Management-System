@@ -1,0 +1,604 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>API Documentation - Third Party Portal</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="{{ url_for('static', filename='dark-mode.js') }}"></script>
+  </head>
+  <body>
+    <div
+      class="relative flex size-full min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden"
+      style="--select-button-svg: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724px%27 height=%2724px%27 fill=%27rgb(73,113,156)%27 viewBox=%270 0 256 256%27%3e%3cpath d=%27M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,1-11.32,0l-48,48A8,8,0,0,0,85.66,85.66Z%27%3e%3c/path%3e%3c/svg%3e'); font-family: Inter, &quot;Noto Sans&quot;, sans-serif;"
+    >
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e7edf4] px-10 py-3">
+          <a href="{{ url_for('third_party_dashboard') }}">
+            <div class="w-[10.5rem] h-[6.5rem]">
+              <img src="../../static/logo.png" alt="Logo" class="w-full h-full object-contain" />
+            </div>
+          </a>
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-4">
+              <div class="bg-[#7c3aed] text-white px-3 py-1 rounded-full text-xs font-semibold">
+                Third Party Portal
+              </div>
+            </div>
+            <div class="flex items-center gap-9">
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('third_party_dashboard') }}">Dashboard</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('third_party_requests') }}">My Requests</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('third_party_api_docs') }}">API Documentation</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('third_party_settings') }}">Settings</a>
+              <a class="text-[#dc2626] text-sm font-medium leading-normal" href="{{ url_for('logout') }}">Logout</a>
+            </div>
+          </div>
+        </header>
+
+        
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <div class="flex min-w-72 flex-col gap-3">
+                <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight">API Documentation</p>
+                <p class="text-[#49719c] text-sm font-normal leading-normal">Complete guide to using our REST API for student data access</p>
+              </div>
+            </div>
+
+          <!-- API Overview -->
+          <div class="px-4 py-3 mb-6">
+            <div class="bg-white rounded-lg border border-[#cedae8] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">API Overview</h3>
+              <div class="space-y-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                  <h4 class="text-[#0d141c] text-base font-semibold mb-2">Base URL</h4>
+                  <code class="text-sm bg-gray-100 p-2 rounded block">https://your-domain.com/api/v1</code>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                  <h4 class="text-[#0d141c] text-base font-semibold mb-2">Authentication</h4>
+                  <p class="text-[#49719c] text-sm mb-2">All API requests require authentication using an API key.</p>
+                  <code class="text-sm bg-gray-100 p-2 rounded block">X-API-Key: your_api_key_here</code>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                  <h4 class="text-[#0d141c] text-base font-semibold mb-2">Rate Limiting</h4>
+                  <p class="text-[#49719c] text-sm">API requests are limited to 1000 requests per hour per user.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Access Workflow -->
+          <div class="px-4 py-3 mb-6">
+            <div class="bg-white rounded-lg border border-[#cedae8] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">🔒 Data Access Workflow</h3>
+              <div class="bg-red-50 p-4 rounded-lg mb-4">
+                <h4 class="text-[#0d141c] text-base font-semibold mb-2">⚠️ Security Notice</h4>
+                <p class="text-[#49719c] text-sm">Student data is protected by a request-approval system. You cannot access detailed student information without explicit approval from the student.</p>
+              </div>
+              
+              <div class="space-y-4">
+                <div class="flex items-start gap-4 p-4 bg-blue-50 rounded-lg">
+                  <div class="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                  <div>
+                    <h4 class="text-[#0d141c] text-base font-semibold mb-2">Browse Available Students</h4>
+                    <p class="text-[#49719c] text-sm mb-2">Use <code>GET /api/v1/students</code> to see all available students with basic information only.</p>
+                    <p class="text-[#49719c] text-sm"><strong>Available data:</strong> Name, email, student ID, department, major, year</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start gap-4 p-4 bg-green-50 rounded-lg">
+                  <div class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                  <div>
+                    <h4 class="text-[#0d141c] text-base font-semibold mb-2">Submit Access Request</h4>
+                    <p class="text-[#49719c] text-sm mb-2">Use <code>POST /api/v1/access-requests</code> to request specific data from a student.</p>
+                    <p class="text-[#49719c] text-sm"><strong>Required:</strong> student_id, requested_data, purpose</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start gap-4 p-4 bg-yellow-50 rounded-lg">
+                  <div class="flex-shrink-0 w-8 h-8 bg-yellow-500 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                  <div>
+                    <h4 class="text-[#0d141c] text-base font-semibold mb-2">Wait for Approval</h4>
+                    <p class="text-[#49719c] text-sm mb-2">The student will review your request and decide whether to approve or reject it.</p>
+                    <p class="text-[#49719c] text-sm">Use <code>GET /api/v1/access-requests</code> to check the status of your requests.</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start gap-4 p-4 bg-purple-50 rounded-lg">
+                  <div class="flex-shrink-0 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold">4</div>
+                  <div>
+                    <h4 class="text-[#0d141c] text-base font-semibold mb-2">Access Approved Data</h4>
+                    <p class="text-[#49719c] text-sm mb-2">Once approved, use <code>GET /api/v1/approved-data/{student_id}</code> to access the detailed information you requested.</p>
+                    <p class="text-[#49719c] text-sm"><strong>Note:</strong> You can only access data that was specifically approved in your request.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Authentication -->
+          <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Authentication</h2>
+          <div class="px-4 py-3 mb-6">
+            <div class="bg-white rounded-lg border border-[#cedae8] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Authentication Flow</h3>
+              <p class="text-[#49719c] text-sm mb-4">To use the API, you need to authenticate first and then generate an API key:</p>
+              
+              <div class="space-y-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                  <h4 class="text-[#0d141c] text-base font-semibold mb-2">Step 1: Login</h4>
+                  <p class="text-[#49719c] text-sm mb-2">Authenticate with your email and password to get a temporary token:</p>
+                  <div class="bg-gray-800 text-green-400 p-4 rounded font-mono text-sm mb-2">
+                    POST /api/v1/auth/login<br>
+                    Headers: Content-Type: application/json<br>
+                    Body: {"email": "your_email", "password": "your_password"}
+                  </div>
+                  <div class="bg-gray-100 p-3 rounded">
+                    <h5 class="text-[#0d141c] text-sm font-semibold mb-1">Response:</h5>
+                    <pre class="text-xs">{
+  "success": true,
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+  "user": {...},
+  "message": "Authentication successful"
+}</pre>
+                  </div>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                  <h4 class="text-[#0d141c] text-base font-semibold mb-2">Step 2: Generate API Key</h4>
+                  <p class="text-[#49719c] text-sm mb-2">Use the token to generate your permanent API key:</p>
+                  <div class="bg-gray-800 text-green-400 p-4 rounded font-mono text-sm mb-2">
+                    POST /api/v1/generate-api-key<br>
+                    Headers: Authorization: Bearer your_token_here<br>
+                    Body: {} (empty JSON object)
+                  </div>
+                  <div class="bg-gray-100 p-3 rounded">
+                    <h5 class="text-[#0d141c] text-sm font-semibold mb-1">Response:</h5>
+                    <pre class="text-xs">{
+  "success": true,
+  "api_key": "abc123def456...",
+  "message": "API key generated successfully"
+}</pre>
+                  </div>
+                </div>
+
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                  <h4 class="text-[#0d141c] text-base font-semibold mb-2">Step 3: Use API Key</h4>
+                  <p class="text-[#49719c] text-sm mb-2">Include your API key in all subsequent requests:</p>
+                  <div class="bg-gray-800 text-green-400 p-4 rounded font-mono text-sm">
+                    X-API-Key: your_api_key_here
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- API Endpoints -->
+          <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">API Endpoints</h2>
+
+          <!-- Get Students -->
+          <div class="px-4 py-3 mb-6">
+            <div class="bg-white rounded-lg border border-[#cedae8] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Get All Students</h3>
+              <p class="text-[#49719c] text-sm mb-4">Retrieve a list of all students with basic information.</p>
+              <div class="bg-gray-800 text-green-400 p-4 rounded font-mono text-sm mb-4">
+                GET /api/v1/students<br>
+                Headers: X-API-Key: your_api_key_here
+              </div>
+              <div class="bg-gray-100 p-4 rounded">
+                <h4 class="text-[#0d141c] text-sm font-semibold mb-2">Response:</h4>
+                <pre class="text-sm">{
+  "success": true,
+  "students": [
+    {
+      "user_id": 1,
+      "full_name": "John Doe",
+      "email": "john@example.com",
+      "student_id": "STU001",
+      "department": "Computer Science",
+      "major": "Software Engineering",
+      "year": "Senior"
+    }
+  ],
+  "count": 1
+}</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Get Student Details -->
+          <div class="px-4 py-3 mb-6">
+            <div class="bg-white rounded-lg border border-[#cedae8] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Get Student Details</h3>
+              <p class="text-[#49719c] text-sm mb-4">Get basic information about a specific student. <strong>Note:</strong> Detailed information requires an approved access request.</p>
+              <div class="bg-gray-800 text-green-400 p-4 rounded font-mono text-sm mb-4">
+                GET /api/v1/students/{student_id}<br>
+                Headers: X-API-Key: your_api_key_here
+              </div>
+              <div class="bg-gray-100 p-4 rounded">
+                <h4 class="text-[#0d141c] text-sm font-semibold mb-2">Response:</h4>
+                <pre class="text-sm">{
+  "success": true,
+  "student": {
+    "user_id": 1,
+    "full_name": "John Doe",
+    "email": "john@example.com",
+    "student_id": "STU001",
+    "department": "Computer Science",
+    "major": "Software Engineering",
+    "year": "Senior"
+  },
+  "has_approved_access": false,
+  "message": "You need to submit an access request to view detailed information. Use /api/v1/access-requests (POST) to request access."
+}</pre>
+              </div>
+              <div class="bg-yellow-50 p-4 rounded-lg mt-4">
+                <h4 class="text-[#0d141c] text-sm font-semibold mb-2">⚠️ Important Security Note:</h4>
+                <p class="text-[#49719c] text-sm">This endpoint only returns basic student information. To access detailed personal, academic, or contact information, you must:</p>
+                <ol class="text-[#49719c] text-sm mt-2 ml-4 list-decimal">
+                  <li>Submit an access request using <code>POST /api/v1/access-requests</code></li>
+                  <li>Wait for the student to approve your request</li>
+                  <li>Use <code>GET /api/v1/approved-data/{student_id}</code> to access detailed information</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Access Request -->
+          <div class="px-4 py-3 mb-6">
+            <div class="bg-white rounded-lg border border-[#cedae8] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Submit Access Request</h3>
+              <p class="text-[#49719c] text-sm mb-4">Submit a request to access student data.</p>
+              <div class="bg-gray-800 text-green-400 p-4 rounded font-mono text-sm mb-4">
+                POST /api/v1/access-requests<br>
+                Headers: X-API-Key: your_api_key_here<br>
+                Content-Type: application/json
+              </div>
+              <div class="bg-gray-100 p-4 rounded mb-4">
+                <h4 class="text-[#0d141c] text-sm font-semibold mb-2">Request Body:</h4>
+                <pre class="text-sm">{
+  "student_id": 1,
+  "requested_data": "academic_records,contact_info",
+  "purpose": "Research study on student demographics"
+}</pre>
+              </div>
+              <div class="bg-gray-100 p-4 rounded">
+                <h4 class="text-[#0d141c] text-sm font-semibold mb-2">Response:</h4>
+                <pre class="text-sm">{
+  "success": true,
+  "request_id": 123,
+  "message": "Access request submitted successfully"
+}</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Get Access Requests -->
+          <div class="px-4 py-3 mb-6">
+            <div class="bg-white rounded-lg border border-[#cedae8] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Get Access Requests</h3>
+              <p class="text-[#49719c] text-sm mb-4">Retrieve all your access requests with optional filtering.</p>
+              <div class="bg-gray-800 text-green-400 p-4 rounded font-mono text-sm mb-4">
+                GET /api/v1/access-requests?status=pending&limit=10&offset=0<br>
+                Headers: X-API-Key: your_api_key_here
+              </div>
+              <div class="bg-gray-100 p-4 rounded">
+                <h4 class="text-[#0d141c] text-sm font-semibold mb-2">Query Parameters:</h4>
+                <ul class="text-sm list-disc list-inside mb-2">
+                  <li>status: pending, approved, rejected (optional)</li>
+                  <li>limit: number of results (default: 50)</li>
+                  <li>offset: pagination offset (default: 0)</li>
+                </ul>
+                <h4 class="text-[#0d141c] text-sm font-semibold mb-2">Response:</h4>
+                <pre class="text-sm">{
+  "success": true,
+  "requests": [
+    {
+      "request_id": 123,
+      "student_id": 1,
+      "requested_data": "academic_records",
+      "purpose": "Research study",
+      "status": "pending",
+      "request_date": "2024-01-15T10:30:00",
+      "response_date": null,
+      "student_name": "John Doe",
+      "student_email": "john@example.com"
+    }
+  ],
+  "total": 1,
+  "limit": 10,
+  "offset": 0
+}</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Get Specific Access Request -->
+          <div class="px-4 py-3 mb-6">
+            <div class="bg-white rounded-lg border border-[#cedae8] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Get Access Request Details</h3>
+              <p class="text-[#49719c] text-sm mb-4">Get detailed information about a specific access request.</p>
+              <div class="bg-gray-800 text-green-400 p-4 rounded font-mono text-sm mb-4">
+                GET /api/v1/access-requests/{request_id}<br>
+                Headers: X-API-Key: your_api_key_here
+              </div>
+              <div class="bg-gray-100 p-4 rounded">
+                <h4 class="text-[#0d141c] text-sm font-semibold mb-2">Response:</h4>
+                <pre class="text-sm">{
+  "success": true,
+  "request": {
+    "request_id": 123,
+    "student_id": 1,
+    "requested_data": "academic_records",
+    "purpose": "Research study",
+    "status": "approved",
+    "request_date": "2024-01-15T10:30:00",
+    "response_date": "2024-01-16T14:20:00",
+    "response_message": "Request approved for research purposes",
+    "student_name": "John Doe",
+    "student_email": "john@example.com"
+  }
+}</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Get Approved Data -->
+          <div class="px-4 py-3 mb-6">
+            <div class="bg-white rounded-lg border border-[#cedae8] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Get Approved Student Data</h3>
+              <p class="text-[#49719c] text-sm mb-4">Access approved student data (only works if you have approved requests for this student).</p>
+              <div class="bg-gray-800 text-green-400 p-4 rounded font-mono text-sm mb-4">
+                GET /api/v1/approved-data/{student_id}<br>
+                Headers: X-API-Key: your_api_key_here
+              </div>
+              <div class="bg-gray-100 p-4 rounded">
+                <h4 class="text-[#0d141c] text-sm font-semibold mb-2">Response:</h4>
+                <pre class="text-sm">{
+  "success": true,
+  "student_data": {
+    "user_id": 1,
+    "full_name": "John Doe",
+    "email": "john@example.com",
+    "student_id": "STU001",
+    "department": "Computer Science",
+    "phone": "+1234567890",
+    "birth_date": "2000-01-01",
+    "gender": "Male",
+    "major": "Software Engineering",
+    "year": "Senior",
+    "gpa": "3.8",
+    "advisor": "Dr. Smith",
+    "linkedin_url": "https://linkedin.com/in/johndoe",
+    "github_url": "https://github.com/johndoe",
+    "address": "123 Main St",
+    "city": "New York",
+    "state": "NY",
+    "contact_phone": "+1234567890"
+  },
+  "approved_requests": 2
+}</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Get Statistics -->
+          <div class="px-4 py-3 mb-6">
+            <div class="bg-white rounded-lg border border-[#cedae8] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Get Statistics</h3>
+              <p class="text-[#49719c] text-sm mb-4">Get your request statistics and activity metrics.</p>
+              <div class="bg-gray-800 text-green-400 p-4 rounded font-mono text-sm mb-4">
+                GET /api/v1/stats<br>
+                Headers: X-API-Key: your_api_key_here
+              </div>
+              <div class="bg-gray-100 p-4 rounded">
+                <h4 class="text-[#0d141c] text-sm font-semibold mb-2">Response:</h4>
+                <pre class="text-sm">{
+  "success": true,
+  "stats": {
+    "total_requests": 25,
+    "pending_requests": 3,
+    "approved_requests": 18,
+    "rejected_requests": 4,
+    "recent_requests_30_days": 8
+  }
+}</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error Responses -->
+          <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Error Responses</h2>
+          <div class="px-4 py-3 mb-6">
+            <div class="bg-white rounded-lg border border-[#cedae8] p-6">
+              <div class="space-y-4">
+                <div class="bg-red-50 p-4 rounded-lg">
+                  <h4 class="text-[#0d141c] text-sm font-semibold mb-2">401 Unauthorized</h4>
+                  <pre class="text-sm">{
+  "error": "API key required"
+}</pre>
+                </div>
+                <div class="bg-red-50 p-4 rounded-lg">
+                  <h4 class="text-[#0d141c] text-sm font-semibold mb-2">403 Forbidden</h4>
+                  <pre class="text-sm">{
+  "error": "No approved requests found for this student"
+}</pre>
+                </div>
+                <div class="bg-red-50 p-4 rounded-lg">
+                  <h4 class="text-[#0d141c] text-sm font-semibold mb-2">404 Not Found</h4>
+                  <pre class="text-sm">{
+  "error": "Student not found"
+}</pre>
+                </div>
+                <div class="bg-red-50 p-4 rounded-lg">
+                  <h4 class="text-[#0d141c] text-sm font-semibold mb-2">400 Bad Request</h4>
+                  <pre class="text-sm">{
+  "error": "Missing required field: student_id"
+}</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Code Examples -->
+          <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Code Examples</h2>
+          <div class="px-4 py-3 mb-6">
+            <div class="bg-white rounded-lg border border-[#cedae8] p-6">
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">Python Example</h3>
+              <div class="bg-gray-800 text-green-400 p-4 rounded font-mono text-sm mb-4">
+                <pre>import requests
+
+BASE_URL = "https://your-domain.com/api/v1"
+EMAIL = "your_email@example.com"
+PASSWORD = "your_password"
+
+# Step 1: Login to get token
+login_response = requests.post(
+    f"{BASE_URL}/auth/login",
+    headers={"Content-Type": "application/json"},
+    json={"email": EMAIL, "password": PASSWORD}
+)
+login_data = login_response.json()
+token = login_data["token"]
+
+# Step 2: Generate API key
+api_key_response = requests.post(
+    f"{BASE_URL}/generate-api-key",
+    headers={"Authorization": f"Bearer {token}"}
+)
+api_key_data = api_key_response.json()
+API_KEY = api_key_data["api_key"]
+
+# Step 3: Use API key for requests
+# Get all students (basic info only)
+response = requests.get(
+    f"{BASE_URL}/students",
+    headers={"X-API-Key": API_KEY}
+)
+students = response.json()
+
+# Submit access request for detailed data
+request_data = {
+    "student_id": 1,
+    "requested_data": "academic_records,contact_info",
+    "purpose": "Research study"
+}
+
+response = requests.post(
+    f"{BASE_URL}/access-requests",
+    headers={
+        "X-API-Key": API_KEY,
+        "Content-Type": "application/json"
+    },
+    json=request_data
+)
+result = response.json()
+
+# Check request status
+response = requests.get(
+    f"{BASE_URL}/access-requests",
+    headers={"X-API-Key": API_KEY}
+)
+requests = response.json()
+
+# Once approved, access detailed data
+response = requests.get(
+    f"{BASE_URL}/approved-data/1",
+    headers={"X-API-Key": API_KEY}
+)
+detailed_data = response.json()</pre>
+              </div>
+
+              <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">JavaScript Example</h3>
+              <div class="bg-gray-800 text-green-400 p-4 rounded font-mono text-sm">
+                <pre>const BASE_URL = "https://your-domain.com/api/v1";
+const EMAIL = "your_email@example.com";
+const PASSWORD = "your_password";
+
+// Step 1: Login to get token
+fetch(`${BASE_URL}/auth/login`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    email: EMAIL,
+    password: PASSWORD
+  })
+})
+.then(response => response.json())
+.then(data => {
+  const token = data.token;
+  
+  // Step 2: Generate API key
+  return fetch(`${BASE_URL}/generate-api-key`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  });
+})
+.then(response => response.json())
+.then(data => {
+  const API_KEY = data.api_key;
+  
+  // Step 3: Use API key for requests
+  // Get all students (basic info only)
+  fetch(`${BASE_URL}/students`, {
+    headers: {
+      "X-API-Key": API_KEY
+    }
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
+  
+  // Submit access request for detailed data
+  const requestData = {
+    student_id: 1,
+    requested_data: "academic_records,contact_info",
+    purpose: "Research study"
+  };
+  
+  fetch(`${BASE_URL}/access-requests`, {
+    method: "POST",
+    headers: {
+      "X-API-Key": API_KEY,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(requestData)
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
+  
+  // Check request status
+  fetch(`${BASE_URL}/access-requests`, {
+    headers: {
+      "X-API-Key": API_KEY
+    }
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
+  
+  // Once approved, access detailed data
+  fetch(`${BASE_URL}/approved-data/1`, {
+    headers: {
+      "X-API-Key": API_KEY
+    }
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
+});</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

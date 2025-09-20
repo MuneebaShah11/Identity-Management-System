@@ -7,14 +7,19 @@ class DarkModeToggle {
     }
 
     init() {
+        console.log('DarkModeToggle: Initializing...');
+        console.log('DarkModeToggle: Current state - isDarkMode:', this.isDarkMode, 'isHighContrast:', this.isHighContrast);
         this.applyTheme();
         this.createToggleButton();
         this.bindEvents();
+        console.log('DarkModeToggle: Initialization complete');
     }
 
     applyTheme() {
         const body = document.body;
         const html = document.documentElement;
+        
+        console.log('DarkModeToggle: Applying theme...');
         
         // Remove existing theme classes
         body.classList.remove('dark-mode', 'high-contrast-mode');
@@ -24,17 +29,24 @@ class DarkModeToggle {
         if (this.isHighContrast) {
             body.classList.add('high-contrast-mode');
             html.classList.add('high-contrast-mode');
+            console.log('DarkModeToggle: Applied high contrast mode');
         } else if (this.isDarkMode) {
             body.classList.add('dark-mode');
             html.classList.add('dark-mode');
+            console.log('DarkModeToggle: Applied dark mode');
+        } else {
+            console.log('DarkModeToggle: Applied light mode');
         }
     }
 
     createToggleButton() {
         // Check if toggle already exists
         if (document.getElementById('theme-toggle')) {
+            console.log('DarkModeToggle: Toggle button already exists');
             return;
         }
+
+        console.log('DarkModeToggle: Creating toggle button...');
 
         const toggleButton = document.createElement('button');
         toggleButton.id = 'theme-toggle';
@@ -43,13 +55,36 @@ class DarkModeToggle {
         toggleButton.setAttribute('aria-label', 'Toggle dark mode');
         toggleButton.setAttribute('title', this.getToggleTitle());
 
-        // Add to header
+        // Add to header - try multiple selectors for different portal layouts
         const header = document.querySelector('header');
         if (header) {
-            const navContainer = header.querySelector('.flex.items-center.gap-9');
+            console.log('DarkModeToggle: Header found, looking for navigation container...');
+            
+            // Try different navigation container selectors
+            let navContainer = header.querySelector('.flex.items-center.gap-9');
+            if (!navContainer) {
+                navContainer = header.querySelector('.flex.items-center.gap-8');
+            }
+            if (!navContainer) {
+                navContainer = header.querySelector('.flex.items-center.gap-4');
+            }
+            if (!navContainer) {
+                // Look for any flex container with items-center
+                navContainer = header.querySelector('.flex.items-center');
+            }
+            if (!navContainer) {
+                // Fallback: add to the header directly
+                navContainer = header;
+            }
+            
             if (navContainer) {
                 navContainer.appendChild(toggleButton);
+                console.log('DarkModeToggle: Toggle button added to navigation container');
+            } else {
+                console.log('DarkModeToggle: No suitable navigation container found');
             }
+        } else {
+            console.log('DarkModeToggle: No header found');
         }
     }
 
@@ -93,23 +128,30 @@ class DarkModeToggle {
     }
 
     toggleTheme() {
+        console.log('DarkModeToggle: Toggling theme...');
+        console.log('DarkModeToggle: Current state - isDarkMode:', this.isDarkMode, 'isHighContrast:', this.isHighContrast);
+        
         if (this.isHighContrast) {
             // High contrast -> Light mode
             this.isHighContrast = false;
             this.isDarkMode = false;
+            console.log('DarkModeToggle: Switching from high contrast to light mode');
         } else if (this.isDarkMode) {
             // Dark mode -> High contrast mode
             this.isDarkMode = false;
             this.isHighContrast = true;
+            console.log('DarkModeToggle: Switching from dark mode to high contrast mode');
         } else {
             // Light mode -> Dark mode
             this.isDarkMode = true;
             this.isHighContrast = false;
+            console.log('DarkModeToggle: Switching from light mode to dark mode');
         }
 
         // Save to localStorage
         localStorage.setItem('darkMode', this.isDarkMode);
         localStorage.setItem('highContrast', this.isHighContrast);
+        console.log('DarkModeToggle: Saved to localStorage');
 
         // Apply new theme
         this.applyTheme();
@@ -119,6 +161,9 @@ class DarkModeToggle {
         if (toggleButton) {
             toggleButton.innerHTML = this.getToggleIcon();
             toggleButton.setAttribute('title', this.getToggleTitle());
+            console.log('DarkModeToggle: Updated toggle button');
+        } else {
+            console.log('DarkModeToggle: Toggle button not found for update');
         }
     }
 }
@@ -127,6 +172,15 @@ class DarkModeToggle {
 document.addEventListener('DOMContentLoaded', () => {
     new DarkModeToggle();
 });
+
+// Also initialize if DOM is already loaded (for dynamic content)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        new DarkModeToggle();
+    });
+} else {
+    new DarkModeToggle();
+}
 
 // CSS for the toggle button
 const style = document.createElement('style');
@@ -167,6 +221,13 @@ style.textContent = `
         --border-color: #475569;
         --accent-color: #3b82f6;
         --accent-hover: #2563eb;
+    }
+
+    /* Force dark mode styles with higher specificity */
+    html.dark-mode,
+    html.dark-mode body,
+    html.dark-mode * {
+        color-scheme: dark;
     }
 
     .dark-mode body {
@@ -210,6 +271,42 @@ style.textContent = `
         background-color: var(--bg-tertiary) !important;
     }
 
+    .dark-mode .bg-gray-50 {
+        background-color: var(--bg-secondary) !important;
+    }
+
+    .dark-mode .bg-slate-50 {
+        background-color: var(--bg-secondary) !important;
+    }
+
+    .dark-mode .border-b-\\[\\#eaedf1\\] {
+        border-color: var(--border-color) !important;
+    }
+
+    .dark-mode .border-b-\\[\\#e7edf4\\] {
+        border-color: var(--border-color) !important;
+    }
+
+    .dark-mode .bg-\\[\\#10b981\\] {
+        background-color: var(--accent-color) !important;
+    }
+
+    .dark-mode .bg-\\[\\#0b79ee\\] {
+        background-color: var(--accent-color) !important;
+    }
+
+    .dark-mode .bg-\\[\\#0b79ef\\] {
+        background-color: var(--accent-color) !important;
+    }
+
+    .dark-mode .bg-\\[\\#0c77f2\\] {
+        background-color: var(--accent-color) !important;
+    }
+
+    .dark-mode .text-white {
+        color: var(--text-primary) !important;
+    }
+
     .dark-mode .theme-toggle-btn {
         background: var(--bg-tertiary);
         color: var(--text-primary);
@@ -230,6 +327,13 @@ style.textContent = `
         --border-color: #ffffff;
         --accent-color: #00ff00;
         --accent-hover: #00cc00;
+    }
+
+    /* Force high contrast mode styles with higher specificity */
+    html.high-contrast-mode,
+    html.high-contrast-mode body,
+    html.high-contrast-mode * {
+        color-scheme: dark;
     }
 
     .high-contrast-mode body {
@@ -273,6 +377,31 @@ style.textContent = `
         background-color: var(--bg-tertiary) !important;
     }
 
+    .high-contrast-mode .bg-gray-50 {
+        background-color: var(--bg-secondary) !important;
+    }
+
+    .high-contrast-mode .bg-slate-50 {
+        background-color: var(--bg-secondary) !important;
+    }
+
+    .high-contrast-mode .border-b-\\[\\#eaedf1\\] {
+        border-color: var(--border-color) !important;
+    }
+
+    .high-contrast-mode .border-b-\\[\\#e7edf4\\] {
+        border-color: var(--border-color) !important;
+    }
+
+    .high-contrast-mode .bg-\\[\\#10b981\\] {
+        background-color: var(--accent-color) !important;
+        color: var(--bg-primary) !important;
+    }
+
+    .high-contrast-mode .text-white {
+        color: var(--text-primary) !important;
+    }
+
     .high-contrast-mode .theme-toggle-btn {
         background: var(--bg-tertiary);
         color: var(--text-primary);
@@ -301,6 +430,145 @@ style.textContent = `
     .high-contrast-mode .bg-\\[\\#0b79ef\\] {
         background-color: var(--accent-color) !important;
         color: var(--bg-primary) !important;
+    }
+
+    .high-contrast-mode .bg-\\[\\#0c77f2\\] {
+        background-color: var(--accent-color) !important;
+        color: var(--bg-primary) !important;
+    }
+
+    /* Additional styles for better coverage */
+    .dark-mode .bg-gray-100 {
+        background-color: var(--bg-tertiary) !important;
+    }
+
+    .dark-mode .bg-gray-200 {
+        background-color: var(--bg-tertiary) !important;
+    }
+
+    .dark-mode .border-gray-200 {
+        border-color: var(--border-color) !important;
+    }
+
+    .dark-mode .border-gray-300 {
+        border-color: var(--border-color) !important;
+    }
+
+    .dark-mode .text-gray-600 {
+        color: var(--text-secondary) !important;
+    }
+
+    .dark-mode .text-gray-700 {
+        color: var(--text-primary) !important;
+    }
+
+    .dark-mode .text-gray-800 {
+        color: var(--text-primary) !important;
+    }
+
+    .dark-mode .text-gray-900 {
+        color: var(--text-primary) !important;
+    }
+
+    .high-contrast-mode .bg-gray-100 {
+        background-color: var(--bg-tertiary) !important;
+    }
+
+    .high-contrast-mode .bg-gray-200 {
+        background-color: var(--bg-tertiary) !important;
+    }
+
+    .high-contrast-mode .border-gray-200 {
+        border-color: var(--border-color) !important;
+    }
+
+    .high-contrast-mode .border-gray-300 {
+        border-color: var(--border-color) !important;
+    }
+
+    .high-contrast-mode .text-gray-600 {
+        color: var(--text-secondary) !important;
+    }
+
+    .high-contrast-mode .text-gray-700 {
+        color: var(--text-primary) !important;
+    }
+
+    .high-contrast-mode .text-gray-800 {
+        color: var(--text-primary) !important;
+    }
+
+    .high-contrast-mode .text-gray-900 {
+        color: var(--text-primary) !important;
+    }
+
+    /* Form elements and input styling */
+    .dark-mode input[type="text"],
+    .dark-mode input[type="email"],
+    .dark-mode input[type="password"],
+    .dark-mode input[type="number"],
+    .dark-mode input[type="date"],
+    .dark-mode select,
+    .dark-mode textarea {
+        background-color: var(--bg-tertiary) !important;
+        color: var(--text-primary) !important;
+        border-color: var(--border-color) !important;
+    }
+
+    .dark-mode input[type="text"]:focus,
+    .dark-mode input[type="email"]:focus,
+    .dark-mode input[type="password"]:focus,
+    .dark-mode input[type="number"]:focus,
+    .dark-mode input[type="date"]:focus,
+    .dark-mode select:focus,
+    .dark-mode textarea:focus {
+        border-color: var(--accent-color) !important;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    }
+
+    .high-contrast-mode input[type="text"],
+    .high-contrast-mode input[type="email"],
+    .high-contrast-mode input[type="password"],
+    .high-contrast-mode input[type="number"],
+    .high-contrast-mode input[type="date"],
+    .high-contrast-mode select,
+    .high-contrast-mode textarea {
+        background-color: var(--bg-tertiary) !important;
+        color: var(--text-primary) !important;
+        border: 2px solid var(--border-color) !important;
+    }
+
+    .high-contrast-mode input[type="text"]:focus,
+    .high-contrast-mode input[type="email"]:focus,
+    .high-contrast-mode input[type="password"]:focus,
+    .high-contrast-mode input[type="number"]:focus,
+    .high-contrast-mode input[type="date"]:focus,
+    .high-contrast-mode select:focus,
+    .high-contrast-mode textarea:focus {
+        border-color: var(--accent-color) !important;
+        box-shadow: 0 0 0 3px rgba(0, 255, 0, 0.3) !important;
+    }
+
+    /* Card and container styling */
+    .dark-mode .bg-white {
+        background-color: var(--bg-tertiary) !important;
+    }
+
+    .dark-mode .shadow-sm,
+    .dark-mode .shadow-md,
+    .dark-mode .shadow-lg {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .high-contrast-mode .bg-white {
+        background-color: var(--bg-tertiary) !important;
+        border: 2px solid var(--border-color) !important;
+    }
+
+    .high-contrast-mode .shadow-sm,
+    .high-contrast-mode .shadow-md,
+    .high-contrast-mode .shadow-lg {
+        box-shadow: 0 0 0 2px var(--border-color) !important;
     }
 `;
 document.head.appendChild(style);

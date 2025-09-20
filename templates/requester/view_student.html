@@ -46,9 +46,6 @@
             </div>
             <div class="px-4 py-3">
               <form action="{{ url_for('requester_students') }}" method="get" class="flex flex-col min-w-40 h-12 w-full">
-                {% if enrollment and enrollment != 'all' %}
-                <input type="hidden" name="enrollment" value="{{ enrollment }}" />
-                {% endif %}
                 <div class="flex w-full flex-1 items-stretch rounded-xl h-full">
                   <div
                     class="text-[#49719c] flex border-none bg-[#e7edf4] items-center justify-center pl-4 rounded-l-xl border-r-0"
@@ -63,34 +60,21 @@
                     </svg>
                   </div>
                   <input name="q"
-                    placeholder="Search students"
+                    placeholder="Search by name, student ID, major, or department"
                     class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#0d141c] focus:outline-0 focus:ring-0 border-none bg-[#e7edf4] focus:border-none h-full placeholder:text-[#49719c] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
-                    value="{{ q }}"
+                    value="{{ q or '' }}"
                   />
                 </div>
               </form>
-            </div>
-            <div class="flex gap-3 p-3 flex-wrap pr-4">
-              <a href="{{ url_for('requester_students') }}" class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 {{ 'bg-[#0b79ee] text-white' if enrollment=='all' else 'bg-[#e7edf4] text-[#0d141c]' }}">
-                <p class="text-sm font-medium leading-normal">All</p>
-              </a>
-              <a href="{{ url_for('requester_students', enrollment='enrolled', q=q) }}" class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 {{ 'bg-[#0b79ee] text-white' if enrollment=='enrolled' else 'bg-[#e7edf4] text-[#0d141c]' }}">
-                <p class="text-sm font-medium leading-normal">Enrolled</p>
-              </a>
-              <a href="{{ url_for('requester_students', enrollment='not_enrolled', q=q) }}" class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 {{ 'bg-[#0b79ee] text-white' if enrollment=='not_enrolled' else 'bg-[#e7edf4] text-[#0d141c]' }}">
-                <p class="text-sm font-medium leading-normal">Not Enrolled</p>
-              </a>
             </div>
             <div class="px-4 py-3 @container">
               <div class="flex overflow-hidden rounded-xl border border-[#cedbe8] bg-slate-50">
                 <table class="flex-1">
                   <thead>
                     <tr class="bg-slate-50">
-                      <th class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-120 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">Name</th>
-                      <th class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-240 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">Major</th>
-                      <th class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-360 px-4 py-3 text-left text-[#0d141c] w-60 text-sm font-medium leading-normal">
-                        Enrollment Status
-                      </th>
+                      <th class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-120 px-4 py-3 text-left text-[#0d141c] w-[300px] text-sm font-medium leading-normal">Name</th>
+                      <th class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-240 px-4 py-3 text-left text-[#0d141c] w-[150px] text-sm font-medium leading-normal">Student ID</th>
+                      <th class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-360 px-4 py-3 text-left text-[#0d141c] w-[300px] text-sm font-medium leading-normal">Major</th>
                       <th class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-480 px-4 py-3 text-left text-[#0d141c] w-60 text-[#49719c] text-sm font-medium leading-normal">
                         Actions
                       </th>
@@ -99,20 +83,16 @@
                   <tbody>
                     {% for student in students %}
                     <tr class="border-t border-t-[#cedbe8]">
-                      <td class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-120 h-[72px] px-4 py-2 w-[400px] text-[#0d141c] text-sm font-normal leading-normal">
+                      <td class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-120 h-[72px] px-4 py-2 w-[300px] text-[#0d141c] text-sm font-normal leading-normal">
                         {{ student.full_name or student.personal_name or 'N/A' }}
                       </td>
-                      <td class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-240 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
+                      <td class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-240 h-[72px] px-4 py-2 w-[150px] text-[#49719c] text-sm font-normal leading-normal">
+                        {{ student.student_id or 'N/A' }}
+                      </td>
+                      <td class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-360 h-[72px] px-4 py-2 w-[300px] text-[#49719c] text-sm font-normal leading-normal">
                         {{ student.major or student.department or 'N/A' }}
                       </td>
-                      <td class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-360 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
-                        <button
-                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#e7edf4] text-[#0d141c] text-sm font-medium leading-normal w-full"
-                        >
-                          <span class="truncate">{% if student.status == 1 %}Enrolled{% else %}Not Enrolled{% endif %}</span>
-                        </button>
-                      </td>
-                                             <td class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-480 h-[72px] px-4 py-2 w-60 text-[#49719c] text-sm font-bold leading-normal tracking-[0.015em]">
+                      <td class="table-644a06b6-dc8c-44a7-a1d3-2918734140f0-column-480 h-[72px] px-4 py-2 w-60 text-[#49719c] text-sm font-bold leading-normal tracking-[0.015em]">
                          <div class="flex items-center gap-2">
                            {% if student.has_pending_requests or student.has_approved_requests %}
                              <div class="flex items-center gap-1">
@@ -202,12 +182,6 @@
                                    class="h-5 w-5 rounded border-[#cedbe8] border-2"
                                    {% if 'additional_information' in student.requested_data_points %}checked{% endif %} />
                                  <span class="text-[#0d141c] text-base">Additional Information</span>
-                               </label>
-                               <label class="flex items-center gap-3">
-                                 <input type="checkbox" name="data_points" value="enrollment_status" 
-                                   class="h-5 w-5 rounded border-[#cedbe8] border-2"
-                                   {% if 'enrollment_status' in student.requested_data_points %}checked{% endif %} />
-                                 <span class="text-[#0d141c] text-base">Enrollment Status</span>
                                </label>
                              </div>
                              <div class="pt-2 flex justify-between items-center">

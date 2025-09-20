@@ -1,5 +1,27 @@
+<!--
+=============================================================================
+IMS Login Page Template
+=============================================================================
+This template provides the user authentication interface for the IMS system.
+It includes:
+
+- Clean, modern login form design
+- Sweet Alert integration for error/success messages
+- Flash message handling for server-side notifications
+- Dark mode support
+- Responsive design with Tailwind CSS
+- Form validation and error display
+
+Features:
+- Email/username and password fields
+- "Forgot Password" link
+- Automatic error message display via Sweet Alerts
+- Session-based authentication
+=============================================================================
+-->
 <html>
   <head>
+    <!-- Google Fonts - Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
     <link
       rel="stylesheet"
@@ -8,27 +30,50 @@
       href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
     />
 
-    <title>Stitch Design</title>
+    <title>IMS Login</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
+    <!-- CSS and JavaScript Dependencies -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url_for('static', filename='sweet-alert.js') }}"></script>
     <script src="{{ url_for('static', filename='dark-mode.js') }}"></script>
   </head>
   <body>
+    <!-- 
+    Flash Messages Container
+    These hidden divs contain server-side flash messages that will be automatically
+    processed by the Sweet Alert system when the page loads
+    -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash-message hidden" data-category="{{ category }}" data-message="{{ message }}"></div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    
     <div
       class="relative flex size-full min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden"
       style="--checkbox-tick-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(248,250,252)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z%27/%3e%3c/svg%3e'); font-family: Inter, &quot;Noto Sans&quot;, sans-serif;"
     >
       <div class="layout-container flex h-full grow flex-col">
+        <!-- Header with Logo -->
         <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e7edf4] px-10 py-3">
           <div class="w-[10.5rem] h-[6.5rem]">
-            <img src="../../static/logo.png" alt="Logo" class="w-full h-full object-contain" />
+            <img src="../../static/logo.png" alt="IMS Logo" class="w-full h-full object-contain" />
           </div>
         </header>
+        
+        <!-- Main Content Area -->
         <div class="px-40 flex flex-1 justify-center py-5">
           <div class="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
+            <!-- Page Title -->
             <h2 class="text-[#0d141c] tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5">Welcome back</h2>
+            
+            <!-- Login Form -->
             <form method="POST" action="{{ url_for('login') }}">
+              <!-- Email/Username Input Field -->
               <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                 <label class="flex flex-col min-w-40 flex-1">
                   <p class="text-[#0d141c] text-base font-medium leading-normal pb-2">Username or Email</p>
@@ -41,6 +86,8 @@
                   />
                 </label>
               </div>
+              
+              <!-- Password Input Field -->
               <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                 <label class="flex flex-col min-w-40 flex-1">
                   <p class="text-[#0d141c] text-base font-medium leading-normal pb-2">Password</p>
@@ -55,6 +102,7 @@
                 </label>
               </div>
               
+              <!-- Submit Button -->
               <div class="flex px-4 py-3">
                 <button
                   type="submit"
@@ -65,6 +113,7 @@
               </div>
             </form>
 
+            <!-- Forgot Password Link -->
             <a href="{{ url_for('forgot_password') }}" class="text-[#49709c] text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center underline block">
               Forgot Password?
             </a>
@@ -73,5 +122,35 @@
       </div>
     </div>
 
+    <!-- 
+    Flash Message Handler Script
+    This script processes any flash messages from the server and displays them
+    as Sweet Alert popups. The main error handling is done by sweet-alert.js,
+    but this provides additional handling specific to the login page.
+    -->
+    <script>
+      // Handle flash messages on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        const flashMessages = document.querySelectorAll('.flash-message');
+        flashMessages.forEach(function(element) {
+          const category = element.dataset.category;
+          const message = element.dataset.message;
+          
+          // Display appropriate alert based on message category
+          if (category === 'error') {
+            showErrorAlert('Error', message);
+          } else if (category === 'success') {
+            showSuccessAlert('Success', message);
+          } else if (category === 'warning') {
+            showWarningAlert('Warning', message);
+          } else {
+            showInfoAlert('Information', message);
+          }
+          
+          // Remove the message element from DOM after displaying
+          element.remove();
+        });
+      });
+    </script>
   </body>
 </html>

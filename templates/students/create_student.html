@@ -98,7 +98,51 @@
                 />
               </label>
             </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Gender</p>
+                <select
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 bg-[image:--select-button-svg] placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  name="gender"
+                  required
+                >
+                  <option value="">{{ student_data.gender or 'Select Gender' }}</option>
+                  <option value="Male" {% if student_data.gender == 'Male' %}selected{% endif %}>Male</option>
+                  <option value="Female" {% if student_data.gender == 'Female' %}selected{% endif %}>Female</option>
+                  <option value="Other" {% if student_data.gender == 'Other' %}selected{% endif %}>Other</option>
+                  <option value="Prefer not to say" {% if student_data.gender == 'Prefer not to say' %}selected{% endif %}>Prefer not to say</option>
+                </select>
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Relationship Status</p>
+                <select
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 bg-[image:--select-button-svg] placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  name="relationship_status"
+                  required
+                >
+                  <option value="">{{ student_data.relationship_status or 'Select Relationship Status' }}</option>
+                  <option value="Single" {% if student_data.relationship_status == 'Single' %}selected{% endif %}>Single</option>
+                  <option value="Married" {% if student_data.relationship_status == 'Married' %}selected{% endif %}>Married</option>
+                  <option value="Complicated" {% if student_data.relationship_status == 'Complicated' %}selected{% endif %}>Complicated</option>
+                  <option value="Divorced" {% if student_data.relationship_status == 'Divorced' %}selected{% endif %}>Divorced</option>
+                  <option value="In a Relationship" {% if student_data.relationship_status == 'In a Relationship' %}selected{% endif %}>In a Relationship</option>
+                </select>
+              </label>
+            </div>
             <h3 class="text-[#101418] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Academic Details</h3>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Student ID</p>
+                <input
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.student_id or '' }}"
+                  name="student_id"
+                  required
+                />
+              </label>
+            </div>
             <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
               <label class="flex flex-col min-w-40 flex-1">
                 <p class="text-[#101418] text-base font-medium leading-normal pb-2">Major</p>
@@ -143,6 +187,30 @@
                 />
               </label>
             </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">LinkedIn Profile</p>
+                <input
+                  type="url"
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.linkedin_url or '' }}"
+                  name="linkedin_url"
+                  placeholder="https://linkedin.com/in/yourprofile"
+                />
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">GitHub Profile</p>
+                <input
+                  type="url"
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.github_url or '' }}"
+                  name="github_url"
+                  placeholder="https://github.com/yourusername"
+                />
+              </label>
+            </div>
             <h3 class="text-[#101418] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Contact Information</h3>
             <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
               <label class="flex flex-col min-w-40 flex-1">
@@ -152,6 +220,18 @@
                   value="{{ student_data.address or '' }}"
                   name="address"
                   required                  
+                />
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Phone Number</p>
+                <input
+                  type="tel"
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
+                  value="{{ student_data.contact_phone or '' }}"
+                  name="contact_phone"
+                  placeholder="Enter contact phone number"
                 />
               </label>
             </div>
@@ -199,23 +279,6 @@
                   name="emergency_contact"
                   required
                 />
-              </label>
-            </div>
-            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-              <label class="flex flex-col min-w-40 flex-1">
-                <p class="text-[#101418] text-base font-medium leading-normal pb-2">Relationship</p>
-                <select
-                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#101418] focus:outline-0 focus:ring-0 border-none bg-[#eaedf1] focus:border-none h-14 bg-[image:--select-button-svg] placeholder:text-[#5c728a] p-4 text-base font-normal leading-normal"
-                  name="relationship"
-                  required
-                  >
-                  <option value="">{{ student_data.relationship or 'Select Relationship' }}</option>
-                  <option value="Parent" {% if student_data.relationship == 'Parent' %}selected{% endif %}>Parent</option>
-                  <option value="Guardian" {% if student_data.relationship == 'Guardian' %}selected{% endif %}>Guardian</option>
-                  <option value="Sibling" {% if student_data.relationship == 'Sibling' %}selected{% endif %}>Sibling</option>
-                  <option value="Spouse" {% if student_data.relationship == 'Spouse' %}selected{% endif %}>Spouse</option>
-                  <option value="Other" {% if student_data.relationship == 'Other' %}selected{% endif %}>Other</option>
-                </select>
               </label>
             </div>
             <div class="flex px-4 py-3 justify-end">

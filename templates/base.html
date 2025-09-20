@@ -1,0 +1,77 @@
+<!--
+=============================================================================
+IMS (Information Management System) - Base Template
+=============================================================================
+This is the base template that provides common functionality for all pages
+in the IMS application. It includes:
+
+- Sweet Alert 2 for user-friendly error/success messages
+- Tailwind CSS for styling
+- Custom error handling system
+- Dark mode support
+- Google Fonts (Inter and Noto Sans)
+- Flash message handling
+
+Usage:
+    {% extends "base.html" %}
+    {% block title %}Page Title{% endblock %}
+    {% block content %}
+        <!-- Page content here -->
+    {% endblock %}
+=============================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IMS Portal{% endblock %}</title>
+    
+    <!-- Sweet Alert 2 - For beautiful popup alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Tailwind CSS - Utility-first CSS framework -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Custom Error Handling System -->
+    <script src="{{ url_for('static', filename='sweet-alert.js') }}"></script>
+    
+    <!-- Dark Mode Support -->
+    <script src="{{ url_for('static', filename='dark-mode.js') }}"></script>
+    
+    <!-- Google Fonts - Inter and Noto Sans for modern typography -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+        rel="stylesheet"
+        as="style"
+        onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    
+    <!-- Additional head content can be added by child templates -->
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- 
+    Error Messages Container (hidden, will be processed by JavaScript)
+    These containers hold server-side error/success messages that will be
+    automatically displayed as Sweet Alert popups when the page loads
+    -->
+    {% if error_message %}
+    <div class="server-error hidden" data-title="{{ error_title or 'Error' }}">{{ error_message }}</div>
+    {% endif %}
+    
+    {% if success_message %}
+    <div class="server-success hidden" data-title="{{ success_title or 'Success' }}">{{ success_message }}</div>
+    {% endif %}
+    
+    <!-- Main content area - to be filled by child templates -->
+    {% block content %}{% endblock %}
+    
+    <!-- Additional scripts can be added by child templates -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>

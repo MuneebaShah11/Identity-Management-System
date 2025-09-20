@@ -1,0 +1,284 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Third Party Requests</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="{{ url_for('static', filename='dark-mode.js') }}"></script>
+  </head>
+  <body>
+    <div
+      class="relative flex size-full min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden"
+      style="--select-button-svg: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724px%27 height=%2724px%27 fill=%27rgb(73,113,156)%27 viewBox=%270 0 256 256%27%3e%3cpath d=%27M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,1-11.32,0l-48,48A8,8,0,0,0,85.66,85.66Z%27%3e%3c/path%3e%3c/svg%3e'); font-family: Inter, &quot;Noto Sans&quot;, sans-serif;"
+    >
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e7edf4] px-10 py-3">
+          <a href="{{ url_for('third_party_dashboard') }}">
+            <div class="w-[10.5rem] h-[6.5rem]">
+              <img src="../../static/logo.png" alt="Logo" class="w-full h-full object-contain" />
+            </div>
+          </a>
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-4">
+              <div class="bg-[#7c3aed] text-white px-3 py-1 rounded-full text-xs font-semibold">
+                Third Party Portal
+              </div>
+            </div>
+            <div class="flex items-center gap-9">
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('third_party_dashboard') }}">Dashboard</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('third_party_requests') }}">My Requests</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('third_party_api_docs') }}">API Documentation</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('third_party_settings') }}">Settings</a>
+              <a class="text-[#dc2626] text-sm font-medium leading-normal" href="{{ url_for('logout') }}">Logout</a>
+            </div>
+          </div>
+        </header>
+        
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <div class="flex min-w-72 flex-col gap-3">
+                <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight">My Requests</p>
+                <p class="text-[#49719c] text-sm font-normal leading-normal">View and manage your access requests</p>
+              </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="px-4 py-3">
+              <div class="flex gap-2 border-b border-[#cedbe8]">
+                <button onclick="showTab('all')" id="tab-all" class="px-4 py-2 text-sm font-medium border-b-2 border-[#0b79ef] text-[#0b79ef]">
+                  All Requests
+                </button>
+                <button onclick="showTab('pending')" id="tab-pending" class="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-[#49719c] hover:text-[#0d141c]">
+                  Pending
+                </button>
+                <button onclick="showTab('approved')" id="tab-approved" class="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-[#49719c] hover:text-[#0d141c]">
+                  Approved
+                </button>
+                <button onclick="showTab('rejected')" id="tab-rejected" class="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-[#49719c] hover:text-[#0d141c]">
+                  Rejected
+                </button>
+              </div>
+            </div>
+
+            <!-- All Requests Tab -->
+            <div id="content-all" class="tab-content">
+              <div class="px-4 py-3">
+                <div class="flex overflow-hidden rounded-lg border border-[#cedae8] bg-slate-50">
+                  <table class="flex-1">
+                    <thead>
+                      <tr class="bg-slate-50">
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[200px] text-sm font-medium leading-normal">Student</th>
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[200px] text-sm font-medium leading-normal">Requested Data</th>
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[150px] text-sm font-medium leading-normal">Status</th>
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[150px] text-sm font-medium leading-normal">Date</th>
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[150px] text-sm font-medium leading-normal">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for request in all_requests %}
+                      <tr class="border-t border-t-[#cedae8]">
+                        <td class="h-[72px] px-4 py-2 w-[200px] text-[#49709c] text-sm font-normal leading-normal">
+                          {{ request.student_name or 'Unknown Student' }}
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[200px] text-[#49709c] text-sm font-normal leading-normal">
+                          {{ request.requested_data.replace('_', ' ').title() }}
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[150px] text-sm font-normal leading-normal">
+                          <span class="px-2 py-1 rounded-full text-xs font-medium
+                            {% if request.status == 'approved' %}bg-green-100 text-green-800
+                            {% elif request.status == 'rejected' %}bg-red-100 text-red-800
+                            {% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                            {{ request.status.title() }}
+                          </span>
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[150px] text-[#49709c] text-sm font-normal leading-normal">
+                          {{ request.request_date.strftime('%Y-%m-%d') if request.request_date else 'N/A' }}
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[150px] text-sm font-normal leading-normal">
+                          {% if request.status == 'approved' %}
+                            <a href="{{ url_for('view_approved_data', student_id=request.student_id) }}" class="text-[#0b79ef] text-sm font-medium hover:underline">
+                              View Data
+                            </a>
+                          {% else %}
+                            <span class="text-[#49719c] text-sm">-</span>
+                          {% endif %}
+                        </td>
+                      </tr>
+                      {% else %}
+                      <tr class="border-t border-t-[#cedae8]">
+                        <td colspan="5" class="h-[72px] px-4 py-2 text-center text-[#49719c] text-sm font-normal leading-normal">
+                          No requests found
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pending Requests Tab -->
+            <div id="content-pending" class="tab-content hidden">
+              <div class="px-4 py-3">
+                <div class="flex overflow-hidden rounded-lg border border-[#cedae8] bg-slate-50">
+                  <table class="flex-1">
+                    <thead>
+                      <tr class="bg-slate-50">
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[200px] text-sm font-medium leading-normal">Student</th>
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[200px] text-sm font-medium leading-normal">Requested Data</th>
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[150px] text-sm font-medium leading-normal">Date</th>
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[150px] text-sm font-medium leading-normal">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for request in pending_requests %}
+                      <tr class="border-t border-t-[#cedae8]">
+                        <td class="h-[72px] px-4 py-2 w-[200px] text-[#49709c] text-sm font-normal leading-normal">
+                          {{ request.student_name or 'Unknown Student' }}
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[200px] text-[#49709c] text-sm font-normal leading-normal">
+                          {{ request.requested_data.replace('_', ' ').title() }}
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[150px] text-[#49709c] text-sm font-normal leading-normal">
+                          {{ request.request_date.strftime('%Y-%m-%d') if request.request_date else 'N/A' }}
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[150px] text-sm font-normal leading-normal">
+                          <span class="text-[#49719c] text-sm">Waiting for approval</span>
+                        </td>
+                      </tr>
+                      {% else %}
+                      <tr class="border-t border-t-[#cedae8]">
+                        <td colspan="4" class="h-[72px] px-4 py-2 text-center text-[#49719c] text-sm font-normal leading-normal">
+                          No pending requests
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Approved Requests Tab -->
+            <div id="content-approved" class="tab-content hidden">
+              <div class="px-4 py-3">
+                <div class="flex overflow-hidden rounded-lg border border-[#cedae8] bg-slate-50">
+                  <table class="flex-1">
+                    <thead>
+                      <tr class="bg-slate-50">
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[200px] text-sm font-medium leading-normal">Student</th>
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[200px] text-sm font-medium leading-normal">Requested Data</th>
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[150px] text-sm font-medium leading-normal">Date</th>
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[150px] text-sm font-medium leading-normal">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for request in approved_requests %}
+                      <tr class="border-t border-t-[#cedae8]">
+                        <td class="h-[72px] px-4 py-2 w-[200px] text-[#49709c] text-sm font-normal leading-normal">
+                          {{ request.student_name or 'Unknown Student' }}
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[200px] text-[#49709c] text-sm font-normal leading-normal">
+                          {{ request.requested_data.replace('_', ' ').title() }}
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[150px] text-[#49709c] text-sm font-normal leading-normal">
+                          {{ request.request_date.strftime('%Y-%m-%d') if request.request_date else 'N/A' }}
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[150px] text-sm font-normal leading-normal">
+                          <a href="{{ url_for('view_approved_data', student_id=request.student_id) }}" class="text-[#0b79ef] text-sm font-medium hover:underline">
+                            View Data
+                          </a>
+                        </td>
+                      </tr>
+                      {% else %}
+                      <tr class="border-t border-t-[#cedae8]">
+                        <td colspan="4" class="h-[72px] px-4 py-2 text-center text-[#49719c] text-sm font-normal leading-normal">
+                          No approved requests
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rejected Requests Tab -->
+            <div id="content-rejected" class="tab-content hidden">
+              <div class="px-4 py-3">
+                <div class="flex overflow-hidden rounded-lg border border-[#cedae8] bg-slate-50">
+                  <table class="flex-1">
+                    <thead>
+                      <tr class="bg-slate-50">
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[200px] text-sm font-medium leading-normal">Student</th>
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[200px] text-sm font-medium leading-normal">Requested Data</th>
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[150px] text-sm font-medium leading-normal">Date</th>
+                        <th class="px-4 py-3 text-left text-[#0d141c] w-[150px] text-sm font-medium leading-normal">Reason</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for request in rejected_requests %}
+                      <tr class="border-t border-t-[#cedae8]">
+                        <td class="h-[72px] px-4 py-2 w-[200px] text-[#49709c] text-sm font-normal leading-normal">
+                          {{ request.student_name or 'Unknown Student' }}
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[200px] text-[#49709c] text-sm font-normal leading-normal">
+                          {{ request.requested_data.replace('_', ' ').title() }}
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[150px] text-[#49709c] text-sm font-normal leading-normal">
+                          {{ request.request_date.strftime('%Y-%m-%d') if request.request_date else 'N/A' }}
+                        </td>
+                        <td class="h-[72px] px-4 py-2 w-[150px] text-[#49709c] text-sm font-normal leading-normal">
+                          {{ request.rejection_reason or 'No reason provided' }}
+                        </td>
+                      </tr>
+                      {% else %}
+                      <tr class="border-t border-t-[#cedae8]">
+                        <td colspan="4" class="h-[72px] px-4 py-2 text-center text-[#49719c] text-sm font-normal leading-normal">
+                          No rejected requests
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showTab(tabName) {
+        // Hide all tab contents
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => content.classList.add('hidden'));
+        
+        // Remove active class from all tabs
+        const tabs = document.querySelectorAll('[id^="tab-"]');
+        tabs.forEach(tab => {
+          tab.classList.remove('border-[#0b79ef]', 'text-[#0b79ef]');
+          tab.classList.add('border-transparent', 'text-[#49719c]');
+        });
+        
+        // Show selected tab content
+        document.getElementById('content-' + tabName).classList.remove('hidden');
+        
+        // Add active class to selected tab
+        const activeTab = document.getElementById('tab-' + tabName);
+        activeTab.classList.remove('border-transparent', 'text-[#49719c]');
+        activeTab.classList.add('border-[#0b79ef]', 'text-[#0b79ef]');
+      }
+    </script>
+  </body>
+</html>

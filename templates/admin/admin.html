@@ -31,113 +31,37 @@
             </div>
             <div class="flex items-center gap-9">
               <a class="text-[#0d141c] text-sm font-medium leading-normal" href="{{ url_for('admin_dashboard') }}">Dashboard</a>
-              <a class="text-[#0d141c] text-sm font-medium leading-normal" href="./user_management.html">Users</a>
-              <a class="text-[#0d141c] text-sm font-medium leading-normal" href="./resources.html">Resources</a>
-              <a class="text-[#0d141c] text-sm font-medium leading-normal" href="./settings.html">Settings</a>
-              <a class="text-[#0d141c] text-sm font-medium leading-normal" href="./access_log.html">Activity Logs</a>
+              <a class="text-[#0d141c] text-sm font-medium leading-normal" href="{{ url_for('users') }}">Users</a>
+              <a class="text-[#0d141c] text-sm font-medium leading-normal" href="{{ url_for('admin_settings') }}">Settings</a>
+              <a class="text-[#0d141c] text-sm font-medium leading-normal" href="{{ url_for('admin_access_logs') }}">Activity Logs</a>
               <a class="text-[#dc2626] text-sm font-medium leading-normal" href="{{ url_for('logout') }}">Logout</a>
             </div>
-            
-            <div
-              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBwBEkNJMa1KVtuberT3En12gi0ajI0R8M71hQhwCSrIbp-BOLwlU1QsVWMYJANPBm3fiSBijwvJFEUg02rDQorYB2xh_DFqznPYD5WrfQZwtW8ir_rsvhl5bowsVfs_VsJeSXo6zihZpjgX2clAHQMWFpmvEMEESuf78xTsEg8UpvYa6eYCBom1iqhwsqI3msa-IBvIkCZIWozrcv81pIwdqGPJueW4r4Fl9AG71RyO5p7kwtQ3v8aCqF5OKiHAkjk5BZhY65X7GJS");'
-            ></div>
           </div>
         </header>
-        <div class="gap-1 px-6 flex flex-1 justify-center py-5">
-          <div class="layout-content-container flex flex-col w-80">
-            <div class="flex h-full min-h-[700px] flex-col justify-between bg-slate-50 p-4">
-              <div class="flex flex-col gap-4">
-                <div class="flex flex-col gap-2">
-                  <div class="flex items-center gap-3 px-3 py-2 rounded-full bg-[#e7edf4]">
-                    <div class="text-[#0d141c]" data-icon="House" data-size="24px" data-weight="fill">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                        <path
-                          d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <a href = "{{ url_for('admin_dashboard') }}" class="text-[#0d141c] text-sm font-medium leading-normal">Dashboard</a>
-                  </div>
-                  <div class="flex items-center gap-3 px-3 py-2">
-                    <div class="text-[#0d141c]" data-icon="Users" data-size="24px" data-weight="regular">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                        <path
-                          d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <a href="{{ url_for('users') }}" class="text-[#0d141c] text-sm font-medium leading-normal">Users</a>
-                  </div>
-                  
-                  <div class="flex items-center gap-3 px-3 py-2">
-                    <div class="text-[#101418]" data-icon="Tray" data-size="24px" data-weight="regular">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                        <path
-                          d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,16V152h-28.7A15.86,15.86,0,0,0,168,156.69L148.69,176H107.31L88,156.69A15.86,15.86,0,0,0,76.69,152H48V48Zm0,160H48V168H76.69L96,187.31A15.86,15.86,0,0,0,107.31,192h41.38A15.86,15.86,0,0,0,160,187.31L179.31,168H208v40Z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <a href="./resources.html" class="text-[#101418] text-sm font-medium leading-normal">Resources</a>
-                  </div>
-                  <div class="flex items-center gap-3 px-3 py-2">
-                    <div class="text-[#101418]" data-icon="Gear" data-size="24px" data-weight="regular">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                        <path
-                          d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <a href="./settings.html" class="text-[#101418] text-sm font-medium leading-normal">Settings</a>
-                  </div>
-
-                  <div class="flex items-center gap-3 px-3 py-2">
-                    <div class="text-[#101418]" data-icon="ListBullets" data-size="24px" data-weight="regular">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                        <path
-                          d="M80,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H88A8,8,0,0,1,80,64Zm136,56H88a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm0,64H88a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16ZM44,52A12,12,0,1,0,56,64,12,12,0,0,0,44,52Zm0,64a12,12,0,1,0,12,12A12,12,0,0,0,44,116Zm0,64a12,12,0,1,0,12,12A12,12,0,0,0,44,180Z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <a href="./access_log.html" class="text-[#101418] text-sm font-medium leading-normal">Activity Logs</a>
-                  </div>
-                  
-                  <div class="flex items-center gap-3 px-3 py-2 mt-4 border-t border-[#e7edf4] pt-4">
-                    <div class="text-[#dc2626]" data-icon="SignOut" data-size="24px" data-weight="regular">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                        <path
-                          d="M112,216a8,8,0,0,1-8,8H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32h56a8,8,0,0,1,0,16H48V208h56A8,8,0,0,1,112,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L196.69,120H88a8,8,0,0,0,0,16H196.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,221.66,122.34Z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <a href="{{ url_for('logout') }}" class="text-[#dc2626] text-sm font-medium leading-normal">Logout</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+        <div class="px-6 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col w-full max-w-[1200px]">
             <div class="flex flex-wrap justify-between gap-3 p-4">
               <div class="flex min-w-72 flex-col gap-3">
                 <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight">Security Dashboard</p>
+                <p class="text-[#49719c] text-sm font-normal leading-normal">Welcome back, {{ user[0] if user else 'Admin' }}! 👋</p>
                 <p class="text-[#49719c] text-sm font-normal leading-normal">Overview of potential security threats and unusual activities.</p>
               </div>
             </div>
             <div class="flex flex-wrap gap-4 p-4">
               <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#e7edf4]">
-                <p class="text-[#0d141c] text-base font-medium leading-normal">High Risk Alerts</p>
-                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight">5</p>
-                <p class="text-[#078838] text-base font-medium leading-normal">+20%</p>
+                <p class="text-[#0d141c] text-base font-medium leading-normal">Total Users</p>
+                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight">{{ total_users }}</p>
+                <p class="text-[#078838] text-base font-medium leading-normal">Active</p>
               </div>
               <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#e7edf4]">
-                <p class="text-[#0d141c] text-base font-medium leading-normal">Failed Login Attempts</p>
-                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight">23</p>
-                <p class="text-[#e73908] text-base font-medium leading-normal">-15%</p>
+                <p class="text-[#0d141c] text-base font-medium leading-normal">Students</p>
+                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight">{{ total_students }}</p>
+                <p class="text-[#078838] text-base font-medium leading-normal">Registered</p>
               </div>
               <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#e7edf4]">
-                <p class="text-[#0d141c] text-base font-medium leading-normal">Unauthorized Access</p>
-                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight">12</p>
-                <p class="text-[#078838] text-base font-medium leading-normal">+10%</p>
+                <p class="text-[#0d141c] text-base font-medium leading-normal">Requesters</p>
+                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight">{{ total_requesters }}</p>
+                <p class="text-[#078838] text-base font-medium leading-normal">Active</p>
               </div>
             </div>
             <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Recent Alerts</h2>
@@ -154,115 +78,34 @@
                         Activity
                       </th>
                       <th class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-480 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">Details</th>
-                      <th class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-600 px-4 py-3 text-left text-[#0d141c] w-60 text-sm font-medium leading-normal">Severity</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="border-t border-t-[#cedbe8]">
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-120 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        2024-03-15 14:30
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d141c] text-sm font-normal leading-normal">
-                        Ethan Harper
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-360 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        Failed Login
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-480 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        Multiple failed attempts
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-600 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
-                        <button
-                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#e7edf4] text-[#0d141c] text-sm font-medium leading-normal w-full"
-                        >
-                          <span class="truncate">High</span>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr class="border-t border-t-[#cedbe8]">
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-120 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        2024-03-15 10:15
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d141c] text-sm font-normal leading-normal">
-                        Sophia Lin
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-360 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        Data Access
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-480 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        Accessed sensitive financial data
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-600 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
-                        <button
-                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#e7edf4] text-[#0d141c] text-sm font-medium leading-normal w-full"
-                        >
-                          <span class="truncate">Medium</span>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr class="border-t border-t-[#cedbe8]">
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-120 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        2024-03-14 22:45
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d141c] text-sm font-normal leading-normal">
-                        Liam Carter
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-360 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        Unusual Time
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-480 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        Accessed system outside of work hours
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-600 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
-                        <button
-                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#e7edf4] text-[#0d141c] text-sm font-medium leading-normal w-full"
-                        >
-                          <span class="truncate">Low</span>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr class="border-t border-t-[#cedbe8]">
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-120 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        2024-03-14 16:20
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d141c] text-sm font-normal leading-normal">
-                        Olivia Bennett
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-360 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        Policy Violation
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-480 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        Attempted to bypass security policy
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-600 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
-                        <button
-                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#e7edf4] text-[#0d141c] text-sm font-medium leading-normal w-full"
-                        >
-                          <span class="truncate">High</span>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr class="border-t border-t-[#cedbe8]">
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-120 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        2024-03-14 09:00
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d141c] text-sm font-normal leading-normal">
-                        Noah Davis
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-360 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        Data Export
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-480 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
-                        Exported large dataset
-                      </td>
-                      <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-600 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
-                        <button
-                          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#e7edf4] text-[#0d141c] text-sm font-medium leading-normal w-full"
-                        >
-                          <span class="truncate">Medium</span>
-                        </button>
-                      </td>
-                    </tr>
+                    {% if recent_logs %}
+                      {% for log in recent_logs %}
+                        <tr class="border-t border-t-[#cedbe8]">
+                          <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-120 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
+                            {{ log[0].strftime('%Y-%m-%d %H:%M') if log[0] else 'N/A' }}
+                          </td>
+                          <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d141c] text-sm font-normal leading-normal">
+                            {{ log[1] or 'Unknown User' }}
+                          </td>
+                          <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-360 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
+                            {{ log[2] or 'Activity' }}
+                          </td>
+                          <td class="table-78c72219-1484-4bb6-b0e3-fa927e53adae-column-480 h-[72px] px-4 py-2 w-[400px] text-[#49719c] text-sm font-normal leading-normal">
+                            {{ log[3] or 'No details available' }}
+                          </td>
+                          
+                        </tr>
+                      {% endfor %}
+                    {% else %}
+                      <tr class="border-t border-t-[#cedbe8]">
+                        <td colspan="5" class="h-[72px] px-4 py-2 text-center text-[#49719c] text-sm font-normal leading-normal">
+                          No recent activity logs found
+                        </td>
+                      </tr>
+                    {% endif %}
                   </tbody>
                 </table>
               </div>
@@ -276,33 +119,37 @@
             </div>
             <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Activity Trends</h2>
             <div class="flex flex-wrap gap-4 px-4 py-6">
-              <div class="flex min-w-72 flex-1 flex-col gap-2 rounded-xl border border-[#cedbe8] p-6">
-                <p class="text-[#0d141c] text-base font-medium leading-normal">Login Attempts</p>
-                <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight truncate">150</p>
+        <div class="flex min-w-72 flex-1 flex-col gap-2 rounded-xl border border-[#cedbe8] p-6">
+          <p class="text-[#0d141c] text-base font-medium leading-normal">Login Attempts</p>
+          <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight truncate">
+            {% set total_attempts = login_attempts_trends|sum(attribute=1) if login_attempts_trends else 0 %}
+            {{ total_attempts }}
+          </p>
                 <div class="flex gap-1">
                   <p class="text-[#49719c] text-base font-normal leading-normal">Last 7 Days</p>
-                  <p class="text-[#078838] text-base font-medium leading-normal">+10%</p>
+                  <p class="text-[#078838] text-base font-medium leading-normal">Active</p>
                 </div>
                 <div class="flex min-h-[180px] flex-1 flex-col gap-8 py-4">
-                  <svg width="100%" height="148" viewBox="-3 0 478 150" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                    <path
-                      d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25V149H326.769H0V109Z"
-                      fill="url(#paint0_linear_1131_5935)"
-                    ></path>
-                    <path
-                      d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25"
-                      stroke="#49719c"
-                      stroke-width="3"
-                      stroke-linecap="round"
-                    ></path>
-                    <defs>
-                      <linearGradient id="paint0_linear_1131_5935" x1="236" y1="1" x2="236" y2="149" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#e7edf4"></stop>
-                        <stop offset="1" stop-color="#e7edf4" stop-opacity="0"></stop>
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  <div class="flex justify-around">
+                <div class="grid min-h-[120px] grid-flow-col gap-6 grid-rows-[1fr_auto] items-end justify-items-center px-3">
+                  {% set max_attempts = login_attempts_trends|map(attribute=1)|max if login_attempts_trends else 1 %}
+                  {% for trend in login_attempts_trends %}
+                    {% set height_percent = (trend[1] / max_attempts * 100) if max_attempts > 0 else 0 %}
+                    <div class="border-[#49719c] bg-[#e7edf4] border-t-2 w-full" style="height: {{ height_percent }}%;"></div>
+                  {% endfor %}
+                  {% if not login_attempts_trends %}
+                    {% for day in ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] %}
+                      <div class="border-[#49719c] bg-[#e7edf4] border-t-2 w-full" style="height: 10%;"></div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+                <div class="flex justify-around">
+                  {% if login_attempts_trends %}
+                    {% for trend in login_attempts_trends %}
+                      <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">
+                        {{ trend[0].strftime('%a') if trend[0] else 'N/A' }}
+                      </p>
+                    {% endfor %}
+                  {% else %}
                     <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Mon</p>
                     <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Tue</p>
                     <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Wed</p>
@@ -310,31 +157,48 @@
                     <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Fri</p>
                     <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Sat</p>
                     <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Sun</p>
-                  </div>
+                  {% endif %}
+                </div>
                 </div>
               </div>
               <div class="flex min-w-72 flex-1 flex-col gap-2 rounded-xl border border-[#cedbe8] p-6">
-                <p class="text-[#0d141c] text-base font-medium leading-normal">Data Access</p>
-                <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight truncate">75</p>
+                <p class="text-[#0d141c] text-base font-medium leading-normal">Total Activity</p>
+                <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight truncate">
+                  {% set total_activity = activity_trends|sum(attribute=1) if activity_trends else 0 %}
+                  {{ total_activity }}
+                </p>
                 <div class="flex gap-1">
                   <p class="text-[#49719c] text-base font-normal leading-normal">Last 7 Days</p>
-                  <p class="text-[#e73908] text-base font-medium leading-normal">-5%</p>
+                  <p class="text-[#078838] text-base font-medium leading-normal">Active</p>
                 </div>
                 <div class="grid min-h-[180px] grid-flow-col gap-6 grid-rows-[1fr_auto] items-end justify-items-center px-3">
-                  <div class="border-[#49719c] bg-[#e7edf4] border-t-2 w-full" style="height: 20%;"></div>
-                  <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Mon</p>
-                  <div class="border-[#49719c] bg-[#e7edf4] border-t-2 w-full" style="height: 100%;"></div>
-                  <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Tue</p>
-                  <div class="border-[#49719c] bg-[#e7edf4] border-t-2 w-full" style="height: 100%;"></div>
-                  <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Wed</p>
-                  <div class="border-[#49719c] bg-[#e7edf4] border-t-2 w-full" style="height: 20%;"></div>
-                  <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Thu</p>
-                  <div class="border-[#49719c] bg-[#e7edf4] border-t-2 w-full" style="height: 50%;"></div>
-                  <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Fri</p>
-                  <div class="border-[#49719c] bg-[#e7edf4] border-t-2 w-full" style="height: 10%;"></div>
-                  <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Sat</p>
-                  <div class="border-[#49719c] bg-[#e7edf4] border-t-2 w-full" style="height: 20%;"></div>
-                  <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Sun</p>
+                  {% set max_activity = activity_trends|map(attribute=1)|max if activity_trends else 1 %}
+                  {% for trend in activity_trends %}
+                    {% set height_percent = (trend[1] / max_activity * 100) if max_activity > 0 else 0 %}
+                    <div class="border-[#49719c] bg-[#e7edf4] border-t-2 w-full" style="height: {{ height_percent }}%;"></div>
+                  {% endfor %}
+                  {% if not activity_trends %}
+                    {% for day in ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] %}
+                      <div class="border-[#49719c] bg-[#e7edf4] border-t-2 w-full" style="height: 10%;"></div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+                <div class="flex justify-around">
+                  {% if activity_trends %}
+                    {% for trend in activity_trends %}
+                      <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">
+                        {{ trend[0].strftime('%a') if trend[0] else 'N/A' }}
+                      </p>
+                    {% endfor %}
+                  {% else %}
+                    <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Mon</p>
+                    <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Tue</p>
+                    <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Wed</p>
+                    <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Thu</p>
+                    <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Fri</p>
+                    <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Sat</p>
+                    <p class="text-[#49719c] text-[13px] font-bold leading-normal tracking-[0.015em]">Sun</p>
+                  {% endif %}
                 </div>
               </div>
             </div>

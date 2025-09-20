@@ -1,0 +1,175 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Third Party Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="{{ url_for('static', filename='dark-mode.js') }}"></script>
+  </head>
+  <body>
+    <div
+      class="relative flex size-full min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden"
+      style="--select-button-svg: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724px%27 height=%2724px%27 fill=%27rgb(73,113,156)%27 viewBox=%270 0 256 256%27%3e%3cpath d=%27M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,1-11.32,0l-48,48A8,8,0,0,0,85.66,85.66Z%27%3e%3c/path%3e%3c/svg%3e'); font-family: Inter, &quot;Noto Sans&quot;, sans-serif;"
+    >
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e7edf4] px-10 py-3">
+          <a href="{{ url_for('third_party_dashboard') }}">
+            <div class="w-[10.5rem] h-[6.5rem]">
+              <img src="../../static/logo.png" alt="Logo" class="w-full h-full object-contain" />
+            </div>
+          </a>
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-4">
+              <div class="bg-[#7c3aed] text-white px-3 py-1 rounded-full text-xs font-semibold">
+                Third Party Portal
+              </div>
+            </div>
+            <div class="flex items-center gap-9">
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('third_party_dashboard') }}">Dashboard</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('third_party_requests') }}">My Requests</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('third_party_api_docs') }}">API Documentation</a>
+              <a class="text-[#101418] text-sm font-medium leading-normal" href="{{ url_for('third_party_settings') }}">Settings</a>
+              <a class="text-[#dc2626] text-sm font-medium leading-normal" href="{{ url_for('logout') }}">Logout</a>
+            </div>
+          </div>
+        </header>
+        
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <div class="flex min-w-72 flex-col gap-3">
+                <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight">API Dashboard</p>
+                <p class="text-[#49719c] text-sm font-normal leading-normal">Welcome back, {{ user.full_name if user else 'Third Party User' }}! 👋</p>
+                <p class="text-[#49719c] text-sm font-normal leading-normal">Manage your API access requests and view documentation</p>
+              </div>
+            </div>
+            
+            <!-- API Status Cards -->
+            <div class="flex flex-wrap gap-4 p-4">
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 border border-[#cedbe8]">
+                <p class="text-[#0d141c] text-base font-medium leading-normal">Pending Requests</p>
+                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight">{{ pending_count or 0 }}</p>
+              </div>
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 border border-[#cedbe8]">
+                <p class="text-[#0d141c] text-base font-medium leading-normal">Approved Requests</p>
+                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight">{{ approved_count or 0 }}</p>
+              </div>
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 border border-[#cedbe8]">
+                <p class="text-[#0d141c] text-base font-medium leading-normal">Rejected Requests</p>
+                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight">{{ rejected_count or 0 }}</p>
+              </div>
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 border border-[#cedbe8]">
+                <p class="text-[#0d141c] text-base font-medium leading-normal">Total Requests</p>
+                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight">{{ total_count or 0 }}</p>
+              </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Quick Actions</h2>
+            <div class="flex justify-stretch">
+              <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 justify-start">
+                <a href="{{ url_for('third_party_requests') }}" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#0b79ef] text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]">
+                  <span class="truncate">View All Requests</span>
+                </a>
+                <a href="{{ url_for('third_party_api_docs') }}" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#7c3aed] text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]">
+                  <span class="truncate">API Documentation</span>
+                </a>
+                <a href="{{ url_for('third_party_settings') }}" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#eaedf1] text-[#101418] text-sm font-bold leading-normal tracking-[0.015em]">
+                  <span class="truncate">Settings</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Recent Requests -->
+            <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Recent Requests</h2>
+            <div class="px-4 py-3">
+              <div class="flex overflow-hidden rounded-lg border border-[#cedae8] bg-slate-50">
+                <table class="flex-1">
+                  <thead>
+                    <tr class="bg-slate-50">
+                      <th class="px-4 py-3 text-left text-[#0d141c] w-[200px] text-sm font-medium leading-normal">Student</th>
+                      <th class="px-4 py-3 text-left text-[#0d141c] w-[200px] text-sm font-medium leading-normal">Requested Data</th>
+                      <th class="px-4 py-3 text-left text-[#0d141c] w-[150px] text-sm font-medium leading-normal">Status</th>
+                      <th class="px-4 py-3 text-left text-[#0d141c] w-[150px] text-sm font-medium leading-normal">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for request in recent_requests %}
+                    <tr class="border-t border-t-[#cedae8]">
+                      <td class="h-[72px] px-4 py-2 w-[200px] text-[#49709c] text-sm font-normal leading-normal">
+                        {{ request.student_name or 'Unknown Student' }}
+                      </td>
+                      <td class="h-[72px] px-4 py-2 w-[200px] text-[#49709c] text-sm font-normal leading-normal">
+                        {{ request.requested_data.replace('_', ' ').title() }}
+                      </td>
+                      <td class="h-[72px] px-4 py-2 w-[150px] text-sm font-normal leading-normal">
+                        <span class="px-2 py-1 rounded-full text-xs font-medium
+                          {% if request.status == 'approved' %}bg-green-100 text-green-800
+                          {% elif request.status == 'rejected' %}bg-red-100 text-red-800
+                          {% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                          {{ request.status.title() }}
+                        </span>
+                      </td>
+                      <td class="h-[72px] px-4 py-2 w-[150px] text-[#49709c] text-sm font-normal leading-normal">
+                        {{ request.request_date.strftime('%Y-%m-%d') if request.request_date else 'N/A' }}
+                      </td>
+                    </tr>
+                    {% else %}
+                    <tr class="border-t border-t-[#cedae8]">
+                      <td colspan="4" class="h-[72px] px-4 py-2 text-center text-[#49709c] text-sm font-normal leading-normal">
+                        No requests found
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- API Documentation Preview -->
+            <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">API Documentation</h2>
+            <div class="px-4 py-3">
+              <div class="bg-white rounded-lg border border-[#cedae8] p-6">
+                <h3 class="text-[#0d141c] text-lg font-bold leading-tight mb-4">REST API Endpoints</h3>
+                <div class="space-y-4">
+                  <div class="border-l-4 border-[#0b79ef] pl-4">
+                    <h4 class="text-[#0d141c] text-base font-semibold">POST /api/access-request</h4>
+                    <p class="text-[#49719c] text-sm">Submit a new access request to a student</p>
+                    <code class="text-xs bg-gray-100 p-2 rounded block mt-2">
+                      {<br>
+                      &nbsp;&nbsp;"student_id": "123",<br>
+                      &nbsp;&nbsp;"requested_data": "academic_records",<br>
+                      &nbsp;&nbsp;"purpose": "Research study"<br>
+                      }
+                    </code>
+                  </div>
+                  <div class="border-l-4 border-[#7c3aed] pl-4">
+                    <h4 class="text-[#0d141c] text-base font-semibold">GET /api/requests</h4>
+                    <p class="text-[#49719c] text-sm">Get all your access requests</p>
+                  </div>
+                  <div class="border-l-4 border-[#10b981] pl-4">
+                    <h4 class="text-[#0d141c] text-base font-semibold">GET /api/requests/{id}</h4>
+                    <p class="text-[#49719c] text-sm">Get specific request details</p>
+                  </div>
+                </div>
+                <div class="mt-6">
+                  <a href="{{ url_for('third_party_api_docs') }}" class="text-[#0b79ef] text-sm font-medium hover:underline">
+                    View Complete API Documentation →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
